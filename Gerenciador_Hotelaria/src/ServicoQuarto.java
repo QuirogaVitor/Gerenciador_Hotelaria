@@ -1,21 +1,15 @@
-package src;
-
-
-//ServicoQuarto.java
+/**package src;
 
 public class ServicoQuarto {
+    public String nomeFuncionario;
     private int quartoId;
     private String tipoServico;
-    private String descricao;
 
-    // Construtor
-    public ServicoQuarto(int quartoId, String tipoServico, String descricao) {
+    public ServicoQuarto(int quartoId, String tipoServico) {
         this.quartoId = quartoId;
         this.tipoServico = tipoServico;
-        this.descricao = descricao;
     }
 
-    // Getters e setters
     public int getQuartoId() {
         return quartoId;
     }
@@ -32,11 +26,16 @@ public class ServicoQuarto {
         this.tipoServico = tipoServico;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNomeFuncionario() {
+        return nomeFuncionario;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+
+    @Override
+    public String toString() {
+        return "ServicoQuarto [quartoId=" + quartoId + ", tipoServico=" + tipoServico +  "]";
     }
+
+    
 }
+**/
