@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28/03/2025 às 23:52
+-- Tempo de geração: 06-Abr-2025 às 01:52
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `clientes`
+-- Estrutura da tabela `clientes`
 --
 
 CREATE TABLE `clientes` (
   `NOME` varchar(100) NOT NULL,
   `CPF` varchar(11) NOT NULL,
   `TELEFONE` varchar(15) DEFAULT NULL,
-  `DATA_NASC` date DEFAULT NULL
+  `DATA_NASC` date DEFAULT NULL,
+  `senha` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `hoteis`
+-- Estrutura da tabela `hoteis`
 --
 
 CREATE TABLE `hoteis` (
@@ -51,7 +52,7 @@ CREATE TABLE `hoteis` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `quartos`
+-- Estrutura da tabela `quartos`
 --
 
 CREATE TABLE `quartos` (
@@ -60,35 +61,70 @@ CREATE TABLE `quartos` (
   `RESERVADO` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
+  `senha` varchar(64) NOT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `data_nasc` date DEFAULT NULL,
+  `tipo` enum('cliente','admin') NOT NULL,
+  `nome_usuario` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `clientes`
+-- Índices para tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`CPF`);
 
 --
--- Índices de tabela `hoteis`
+-- Índices para tabela `hoteis`
 --
 ALTER TABLE `hoteis`
   ADD PRIMARY KEY (`CNPJ`);
 
 --
--- Índices de tabela `quartos`
+-- Índices para tabela `quartos`
 --
 ALTER TABLE `quartos`
   ADD KEY `ID_CLIENTES` (`ID_CLIENTES`),
   ADD KEY `ID_HOTEL` (`ID_HOTEL`);
 
 --
--- Restrições para tabelas despejadas
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf` (`cpf`),
+  ADD UNIQUE KEY `nome_usuario` (`nome_usuario`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- Restrições para tabelas `quartos`
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `quartos`
 --
 ALTER TABLE `quartos`
   ADD CONSTRAINT `quartos_ibfk_1` FOREIGN KEY (`ID_CLIENTES`) REFERENCES `clientes` (`CPF`),

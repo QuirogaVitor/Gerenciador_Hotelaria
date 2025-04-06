@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,12 +28,12 @@ public class TelaLogin extends Application {
     @FXML
     private TextField campoUsuario;
 
-    // Método principal
+    
     public static void main(String[] args) {
-        launch(args); // chama o método start
+        launch(args); 
     }
 
-    // Abre a tela de login
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("TelaLogin.fxml"));
@@ -42,9 +43,33 @@ public class TelaLogin extends Application {
         primaryStage.show();
     }
 
+    private void abrirTela(String fxml) {
+       //Preencher com código para abrir tela com funcionalidade do admin ou usuário
+    }
+    
     @FXML
     void FazerLogin(ActionEvent event) {
-        // Aqui você pode validar o login
+        String nomeUsuario = campoUsuario.getText();
+        String senha = campoSenha.getText();
+
+        UsuarioDAO dao = new UsuarioDAO();
+        String tipoUsuario = dao.validarLogin(nomeUsuario, senha);
+
+        if(tipoUsuario != null){
+            System.out.println("Login bem-sucedido! Tipo: " + tipoUsuario);
+
+            if(tipoUsuario.equals("admin")){
+                abrirTela("TelaAdmin.fxml");
+            }else if(tipoUsuario.equals("cliente")){
+                abrirTela("TelaCliente.fxml");
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro de Login");
+            alert.setHeaderText(null);
+            alert.setContentText("Usuário ou senha inválidos!");
+            alert.showAndWait();
+        }
     }
 
     @FXML

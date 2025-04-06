@@ -1,8 +1,8 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
 public class CadastroUsuario {
 
@@ -28,7 +28,15 @@ public class CadastroUsuario {
     private TextField campoSenha;
 
     @FXML
-    private AnchorPane paneCadastro;
+    private ComboBox<String> comboTipoUsuario;
+
+    @FXML
+    private TextField campoNomeUsuario;
+
+    @FXML
+    public void initialize() {
+        comboTipoUsuario.getItems().addAll("cliente", "admin");
+    }
 
     @FXML
     void cadastrarUsuario(ActionEvent event) {
@@ -37,9 +45,10 @@ public class CadastroUsuario {
         String dataNasc = campoDataNasc.getText();
         String telefone = campoTelefone.getText();
         String senha = campoSenha.getText();
-
+        String tipo = comboTipoUsuario.getValue();
+        String nomeUsuario = campoNomeUsuario.getText();
         UsuarioDAO dao = new UsuarioDAO();
-        dao.cadastrarUsuario(nome, senha, cpf, telefone, dataNasc);
+        dao.cadastrarUsuario(nome, senha, cpf, telefone, dataNasc, tipo, nomeUsuario);
     }
 
     @FXML
@@ -49,7 +58,7 @@ public class CadastroUsuario {
         campoCPF.clear();
         campoTelefone.clear();
         campoDataNasc.clear();
+        comboTipoUsuario.setValue(null);
+        campoNomeUsuario.clear();
     }
-
 }
-
