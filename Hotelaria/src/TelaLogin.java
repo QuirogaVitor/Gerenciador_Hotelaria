@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import DAO.UsuarioDAO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
