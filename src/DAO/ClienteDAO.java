@@ -7,23 +7,26 @@ import Model.Cliente;
 
 public class ClienteDAO {
 
-    public static Cliente buscarPorCPF(String cpf) {
-        String sql = "SELECT * FROM clientes WHERE CPF = ?";
+    public static Cliente buscarCliente(String filtro) {
+        String sql = "SELECT * FROM cliente " + filtro;
         
-        try (Connection conn = ConexaoBD.conectar(); 
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = ConexaoBD.conectar();
 
-            stmt.setString(1, cpf);
-            ResultSet rs = stmt.executeQuery();
+             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            if (rs.next()) {
-                String nome = rs.getString("NOME");
-                String dataNasc = rs.getString("DATA_NASC");
-                String telefone = rs.getString("TELEFONE");
-                String login = rs.getString("senha");
+                ResultSet rs = stmt.executeQuery();
 
-                return new Cliente(nome, dataNasc, telefone, cpf, login);
-            }
+                if (rs.next()) {
+                    int id = rs.getInt("ID");
+                    String nome = rs.getString("NOME");
+                    String dataNasc = rs.getString("DATA_NASC");
+                    String telefone = rs.getString("TELEFONE");
+                    String login = rs.getString("senha");
+                    String cpf = rs.getString("CPF");
+
+                    return new Cliente(nome, dataNasc, telefone, cpf, login);
+                }
 
         } catch (Exception e) {
             e.printStackTrace();

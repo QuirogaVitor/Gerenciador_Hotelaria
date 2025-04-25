@@ -31,7 +31,6 @@ public class Cliente {
 
     //funcao vai ter um if para saber se na tabela quartos o quarto está disponivel juntamente com o nome do hotel na qual vai fazer a reserva
     public Reserva fazerReserva(Quarto quarto) {
-        if(quarto.getIsOcupado() == false && quarto.getIsReservado() == false){
             return quarto.Reservar(this);
         }
         Reserva _reserva = Reserva.buscarReservaByQuarto(quarto);
