@@ -33,7 +33,5 @@ public class Cliente {
     public Reserva fazerReserva(Quarto quarto) {
             return quarto.Reservar(this);
         }
-        Reserva _reserva = Reserva.buscarReservaByQuarto(quarto);
-        return _reserva;
     }
-}
+
