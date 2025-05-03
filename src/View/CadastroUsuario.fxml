@@ -12,7 +12,7 @@
   <children>
     <AnchorPane fx:id="paneCadastro" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" layoutX="230.0" layoutY="14.0" prefHeight="27.0" prefWidth="148.0" text="Cadastro">
+            <Label alignment="CENTER" layoutX="270.0" layoutY="15.0" prefHeight="27.0" prefWidth="102.0" text="Cadastro">
                <font>
                   <Font size="18.0" />
                </font>
@@ -33,6 +33,7 @@
             <Label layoutX="378.0" layoutY="210.0" prefHeight="17.0" prefWidth="128.0" text="Senha:" />
             <Label layoutX="193.0" layoutY="210.0" prefHeight="17.0" prefWidth="128.0" text="Nome de usuário:" />
             <TextField fx:id="campoNomeUsuario" layoutX="190.0" layoutY="248.0" prefHeight="25.0" prefWidth="148.0" />
+            <Button fx:id="botaoVoltar" layoutX="63.0" layoutY="28.0" mnemonicParsing="false" onAction="#voltarTelaLogin" prefHeight="25.0" prefWidth="67.0" text="Voltar" />
             
             
          </children>

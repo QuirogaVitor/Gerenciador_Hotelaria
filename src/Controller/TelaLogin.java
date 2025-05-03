@@ -3,6 +3,8 @@ package Controller;
 import java.io.IOException;
 
 import DAO.UsuarioDAO;
+import Model.Quarto;
+import Model.Reserva;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,25 +13,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TelaLogin extends Application {
 
     @FXML
-    private Button BotaoLimparLogin;
-
-    @FXML
     private Button botaoEntrarLogin;
-
-    @FXML
-    private Button botaoIrTelaCadastro;
 
     @FXML
     private TextField campoSenha;
 
     @FXML
     private TextField campoUsuario;
+
+    @FXML
+    private Hyperlink linkFazerCadastro;
+
+    @FXML
+    private Hyperlink linkLoginFuncionario;
 
     
     public static void main(String[] args) {
@@ -57,6 +60,7 @@ public class TelaLogin extends Application {
 
         UsuarioDAO dao = new UsuarioDAO();
         String tipoUsuario = dao.validarLogin(nomeUsuario, senha);
+        Reserva.buscarReservaByQuarto(new Quarto(150));
 
         if(tipoUsuario != null){
             System.out.println("Login bem-sucedido! Tipo: " + tipoUsuario);
@@ -73,16 +77,11 @@ public class TelaLogin extends Application {
             alert.setContentText("Usuário ou senha inválidos!");
             alert.showAndWait();
         }
+        
     }
 
     @FXML
-    void LimparLogin(ActionEvent event) {
-        campoSenha.clear();
-        campoUsuario.clear();
-    }
-
-    @FXML
-    void chamarTelaCadastro(ActionEvent event) {
+    void cadastrarUsuario(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
             Stage stage = new Stage();
@@ -91,12 +90,17 @@ public class TelaLogin extends Application {
             stage.show();
 
             
-            Stage telaAtual = (Stage) botaoIrTelaCadastro.getScene().getWindow();
+            Stage telaAtual = (Stage) linkFazerCadastro.getScene().getWindow();
             telaAtual.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void telaLoginFuncionario(ActionEvent event) {
+
     }
 }
 
