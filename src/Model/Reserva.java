@@ -2,22 +2,87 @@ package Model;
 
 import java.time.LocalDate;
 
-import DAO.ReservaDAO;
-
 public class Reserva {
-    Quarto quarto;
-    Cliente cliente;
-    String dataReserva;
-    
-    public Reserva(Quarto quarto, Cliente cliente){
-        this.quarto = quarto;
-        this.cliente = cliente;
-        this.dataReserva = LocalDate.now().toString();
+
+    public enum Status {
+        AGUARDANDO, OCUPADO, FINALIZADO
     }
 
-    public static Reserva buscarReservaByQuarto(Quarto quarto) {
-        // busca no banco uma reserva no numero informado do quarto
-        String filtro = "WHERE quarto.numero = " + quarto.getNumeroDoQuarto();
-        return ReservaDAO.getReserva(filtro);
+    private int codigoReserva;
+    private Cliente cliente;
+    private Quarto quarto;
+    private LocalDate dataReserva;
+    private LocalDate dataCheckin;
+    private LocalDate dataCheckout;
+    private Status status;
+
+    // Construtores
+    public Reserva() {}
+
+    public Reserva(int codigoReserva, Cliente cliente, Quarto quarto, LocalDate dataReserva, LocalDate dataCheckin, LocalDate dataCheckout, Status status) {
+        this.codigoReserva = codigoReserva;
+        this.cliente = cliente;
+        this.quarto = quarto;
+        this.dataReserva = dataReserva;
+        this.dataCheckin = dataCheckin;
+        this.dataCheckout = dataCheckout;
+        this.status = status;
+    }
+
+    // Getters e Setters
+    public int getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(int codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+
+    public LocalDate getDataReserva() {
+        return dataReserva;
+    }
+
+    public void setDataReserva(LocalDate dataReserva) {
+        this.dataReserva = dataReserva;
+    }
+
+    public LocalDate getDataCheckin() {
+        return dataCheckin;
+    }
+
+    public void setDataCheckin(LocalDate dataCheckin) {
+        this.dataCheckin = dataCheckin;
+    }
+
+    public LocalDate getDataCheckout() {
+        return dataCheckout;
+    }
+
+    public void setDataCheckout(LocalDate dataCheckout) {
+        this.dataCheckout = dataCheckout;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

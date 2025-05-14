@@ -1,5 +1,16 @@
 package Model.Funcionarios;
 
-public class Recepcionista {
+import Model.Enums.Cargo;
 
+public class Recepcionista extends Funcionario {
+
+    public Recepcionista()
+    {
+        this.setCargo(Cargo.RECEPCIONISTA);
+    }
+
+    @Override
+    public void RealizarCadastro() {
+        // ADD: Tratamento para tela de cadastrar f
+    }
 }

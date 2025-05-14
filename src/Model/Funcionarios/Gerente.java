@@ -1,13 +1,15 @@
 package Model.Funcionarios;
 
-public class Gerente extends FuncionarioBase{
+import Model.Enums.Cargo;
+
+public class Gerente extends Funcionario {
+
     public Gerente(){
-        
-        
+        this.setCargo(Cargo.GERENTE);
     }
 
     @Override
-    public void CadastrarFuncionario(){
+    public void RealizarCadastro(){
         //Chamar da tela de cadastrar funcionários como gerente
     }
 

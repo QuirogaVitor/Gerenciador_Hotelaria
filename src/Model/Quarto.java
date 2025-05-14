@@ -1,41 +1,63 @@
 package Model;
 
-import Model.Enums.TipoServico;
-
 public class Quarto {
-    private int numeroDoQuarto;
-    private boolean isOcupado;
-    private boolean isReservado;
-    private TipoServico tipoServico;
+    private int id;
+    private int numero;
+    private Tipo tipo;
+    private Status status;
 
-    public Quarto(int numero){
-        this.numeroDoQuarto = numero;
-        this.isOcupado = false;
-        this.isReservado = false;
-        this.tipoServico = TipoServico.SemServico;
+    public enum Tipo {
+        LUXO, STANDARD, SIMPLES;
     }
 
-    public int getNumeroDoQuarto(){
-        return this.numeroDoQuarto;
+    public enum Status {
+        LIVRE, RESERVADO, OCUPADO;
     }
 
-    public boolean getIsOcupado(){
-        return this.isOcupado;
+    public int getId() {
+        return this.id;
     }
 
-    public boolean getIsReservado(){
-        return this.isReservado;
-    }   
-
-    public TipoServico getServicoDeQuartoChamado(){
-            return this.tipoServico;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Reserva Reservar(Cliente cliente) {
-        this.isReservado = true;
-        return new Reserva(null, cliente);
+    // Construtores
+    public Quarto() {}
+
+    public Quarto(int numero, Tipo tipo, Status status) {
+        this.numero = numero;
+        this.tipo = tipo;
+        this.status = status;
     }
 
-    public void cancelarReserva(){}
+    // Getters e Setters
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Quarto [numero=" + numero + ", tipo=" + tipo + ", status=" + status + "]";
+    }
 }
-
