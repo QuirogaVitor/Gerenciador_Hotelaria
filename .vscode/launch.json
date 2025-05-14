@@ -5,7 +5,7 @@
         "type": "java",
         "name": "Logar",
         "request": "launch",
-        "mainClass": "Controller.TelaLoginFuncionario",
+        "mainClass": "Controller.TelaLogin",
         "vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=\"${workspaceFolder}/lib\""
   
       }

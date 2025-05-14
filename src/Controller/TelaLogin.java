@@ -1,11 +1,8 @@
 package Controller;
 import java.io.IOException;
 import java.sql.SQLException;
-
 import Business.BusinessFactory;
-import Data.DAOFactory;
 import Model.Funcionarios.Funcionario;
-import Model.Usuario.UsuarioFuncionario;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,11 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaLogin {
+public class TelaLogin extends Application {
+
 
     @FXML
     private Button botaoEntrarLogin;
@@ -29,6 +26,19 @@ public class TelaLogin {
     private TextField campoUsuario;
 
     private BusinessFactory bf;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/TelaLoginFuncionario.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Tela de Login");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
     
     private void abrirTela(String fxml) {
        //Preencher com código para abrir tela com funcionalidade do admin ou usuário
@@ -43,8 +53,19 @@ public class TelaLogin {
             // Exibir erro na tela de usuario ou senha invalido
             return;
         }
-
         // Abrir a próxima tela pois o usuario é e senha são validos
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Funcionalidade Funcionários");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage telaAtual = (Stage) botaoEntrarLogin.getScene().getWindow();
+            telaAtual.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
