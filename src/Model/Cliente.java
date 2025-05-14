@@ -1,37 +1,89 @@
 package Model;
 
-import Model.Enums.TipoServico;
+import java.sql.Date;
 
 public class Cliente {
-    String nome;
-    String dataNasc;
-    String telefone;
-    String cpf;
-    String login;
+    private String nome;
+    private String cpf;
+    private String email;
+    private String telefone;
+    private Date dataNascimento;
+    private int clienteId;
 
-    public Cliente(String nome, String dataNasc, String telefone, String cpf, String login) {
+    // Construtor
+
+    public Cliente(){ }
+
+    public Cliente(String nome, String cpf, String email, String telefone, Date dataNascimento) {
         this.nome = nome;
-        this.dataNasc = dataNasc;
-        this.telefone = telefone;
         this.cpf = cpf;
-        this.login = login;
+        this.email = email;
+        this.telefone = telefone;
+        this.dataNascimento = dataNascimento;
     }
 
-    public void fazerCheckout() {
-        throw new UnsupportedOperationException("Unimplemented method 'fazerCheckout'");
+    // Getters e Setters
+    public String getNome() {
+        return nome;
     }
 
-    public void fazerCheckin() {
-        throw new UnsupportedOperationException("Unimplemented method 'fazerCheckin'");
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    void chamarServicoQuarto(int quarto, TipoServico tipoServico) {
-        System.out.println("A sua chamada já foi cadastrada, um funcionário já está a caminho!");
+    public String getCpf() {
+        return cpf;
     }
 
-    //funcao vai ter um if para saber se na tabela quartos o quarto está disponivel juntamente com o nome do hotel na qual vai fazer a reserva
-    public Reserva fazerReserva(Quarto quarto) {
-            return quarto.Reservar(this);
-        }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public int getClienteId()
+    {
+        return this.clienteId;
+    }
+
+    public void setClienteId(int id) {
+        this.clienteId = id;
+    }
+
+    // Método toString (opcional)
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                '}';
+    }
+
+
+
+}

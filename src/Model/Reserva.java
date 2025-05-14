@@ -1,45 +1,88 @@
 package Model;
 
-import java.sql.Date;
-
-import DAO.ClienteDAO;
-import DAO.QuartoDAO;
-import DAO.ReservaDAO;
-import Model.Enums.StatusReserva;
+import java.time.LocalDate;
 
 public class Reserva {
-    int idReserva;
-    Quarto quarto;
-    Cliente cliente;
-    Date dataCheckIn;
-    Date dataCheckOut;
-    StatusReserva status;
 
-    
-    public Reserva(Quarto quarto, Cliente cliente){
+    public enum Status {
+        AGUARDANDO, OCUPADO, FINALIZADO
+    }
+
+    private int codigoReserva;
+    private Cliente cliente;
+    private Quarto quarto;
+    private LocalDate dataReserva;
+    private LocalDate dataCheckin;
+    private LocalDate dataCheckout;
+    private Status status;
+
+    // Construtores
+    public Reserva() {}
+
+    public Reserva(int codigoReserva, Cliente cliente, Quarto quarto, LocalDate dataReserva, LocalDate dataCheckin, LocalDate dataCheckout, Status status) {
+        this.codigoReserva = codigoReserva;
+        this.cliente = cliente;
         this.quarto = quarto;
+        this.dataReserva = dataReserva;
+        this.dataCheckin = dataCheckin;
+        this.dataCheckout = dataCheckout;
+        this.status = status;
+    }
+
+    // Getters e Setters
+    public int getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(int codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public Reserva(int idReserva, int idCliente, int idQuarto, Date dataCheckIn, Date dataCheckOut, StatusReserva statusReserva){
-        this.idReserva = idReserva;
-        String filtro = "WHERE id = " + idQuarto;
-        this.quarto = QuartoDAO.buscarQuarto(filtro);
-        filtro = "WHERE id = " + idCliente;
-        this.cliente = ClienteDAO.buscarCliente(filtro);
-        this.dataCheckIn = dataCheckIn;
-        this.dataCheckOut = dataCheckOut;
-        this.status = statusReserva;
+    public Quarto getQuarto() {
+        return quarto;
     }
 
-    public static Reserva buscarReservaByQuarto(Quarto quarto) {
-        // busca no banco uma reserva no numero informado do quarto
-        String filtro = "WHERE quarto.numero = " + quarto.getNumeroDoQuarto();
-        return ReservaDAO.buscarReserva(filtro);
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
     }
 
-    public static Reserva buscarReservaByCliente(Cliente cliente){
-        String filtro = "WHERE cliente.cpf = " + cliente.cpf;
-        return ReservaDAO.buscarReserva(filtro);
+    public LocalDate getDataReserva() {
+        return dataReserva;
+    }
+
+    public void setDataReserva(LocalDate dataReserva) {
+        this.dataReserva = dataReserva;
+    }
+
+    public LocalDate getDataCheckin() {
+        return dataCheckin;
+    }
+
+    public void setDataCheckin(LocalDate dataCheckin) {
+        this.dataCheckin = dataCheckin;
+    }
+
+    public LocalDate getDataCheckout() {
+        return dataCheckout;
+    }
+
+    public void setDataCheckout(LocalDate dataCheckout) {
+        this.dataCheckout = dataCheckout;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

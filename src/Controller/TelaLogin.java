@@ -1,8 +1,12 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
-import DAO.UsuarioDAO;
+import Business.BusinessFactory;
+import Data.DAOFactory;
+import Model.Funcionarios.Funcionario;
+import Model.Usuario.UsuarioFuncionario;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +35,8 @@ public class TelaLogin extends Application {
     @FXML
     private TextField campoUsuario;
 
+    private BusinessFactory bf;
+
     
     public static void main(String[] args) {
         launch(args); 
@@ -44,6 +50,7 @@ public class TelaLogin extends Application {
         primaryStage.setTitle("Tela de Login");
         primaryStage.setScene(scene);
         primaryStage.show();
+        bf = new BusinessFactory();
     }
 
     private void abrirTela(String fxml) {
@@ -51,28 +58,16 @@ public class TelaLogin extends Application {
     }
     
     @FXML
-    void FazerLogin(ActionEvent event) {
-        String nomeUsuario = campoUsuario.getText();
-        String senha = campoSenha.getText();
+    void FazerLogin(ActionEvent event) throws SQLException {
+        Funcionario funcionarioLogado = bf.UsuarioFuncionario().FazerLogin(campoUsuario.getText(), campoSenha.getText());
 
-        UsuarioDAO dao = new UsuarioDAO();
-        String tipoUsuario = dao.validarLogin(nomeUsuario, senha);
-
-        if(tipoUsuario != null){
-            System.out.println("Login bem-sucedido! Tipo: " + tipoUsuario);
-
-            if(tipoUsuario.equals("admin")){
-                abrirTela("TelaAdmin.fxml");
-            }else if(tipoUsuario.equals("cliente")){
-                abrirTela("TelaCliente.fxml");
-            }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro de Login");
-            alert.setHeaderText(null);
-            alert.setContentText("Usuário ou senha inválidos!");
-            alert.showAndWait();
+        if (funcionarioLogado == null)
+        {
+            // Exibir erro na tela de usuario ou senha invalido
+            return;
         }
+
+        // Abrir a próxima tela pois o usuario é e senha são validos
     }
 
     @FXML

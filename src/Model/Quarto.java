@@ -1,58 +1,63 @@
 package Model;
 
-import Model.Enums.StatusQuarto;
-import Model.Enums.TipoServico;
-
 public class Quarto {
-    int id;
-    private int numeroDoQuarto;
-    private boolean isOcupado;
-    private boolean isReservado;
-    private TipoServico tipoServico;
-    StatusQuarto status;
+    private int id;
+    private int numero;
+    private Tipo tipo;
+    private Status status;
 
-    public Quarto(int numero){
-        this.numeroDoQuarto = numero;
-        this.isOcupado = false;
-        this.isReservado = false;
-        this.tipoServico = TipoServico.SemServico;
+    public enum Tipo {
+        LUXO, STANDARD, SIMPLES;
     }
 
-    public Quarto(int quartoId, int numero, StatusQuarto statusQuarto){
-        this.numeroDoQuarto = numero;
-        this.id = quartoId;
-        this.status = statusQuarto;
+    public enum Status {
+        LIVRE, RESERVADO, OCUPADO;
     }
 
-    public int getNumeroDoQuarto(){
-        return this.numeroDoQuarto;
+    public int getId() {
+        return this.id;
     }
 
-    public boolean getIsOcupado(){
-        return this.isOcupado;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public boolean getIsReservado(){
-        return this.isReservado;
-    }   
+    // Construtores
+    public Quarto() {}
 
-    public TipoServico getServicoDeQuartoChamado(){
-            return this.tipoServico;
+    public Quarto(int numero, Tipo tipo, Status status) {
+        this.numero = numero;
+        this.tipo = tipo;
+        this.status = status;
     }
 
-    public Reserva Reservar(Cliente cliente) {
-        try{
-            if(this.status != StatusQuarto.Vazio){
-                throw new Exception("Quarto já está ocupado");
-            }
-            this.status = StatusQuarto.reservado;
-            return new Reserva(this, cliente);
-        }catch(Exception exception){
-            System.out.println(exception.getMessage());
-        }
-       return null;
+    // Getters e Setters
+    public int getNumero() {
+        return numero;
     }
 
-    public void cancelarReserva(){}
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Quarto [numero=" + numero + ", tipo=" + tipo + ", status=" + status + "]";
+    }
 }
-
