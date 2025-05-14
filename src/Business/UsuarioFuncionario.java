@@ -2,8 +2,7 @@ package Business;
 
 import Data.DAOFactory;
 import Model.Funcionarios.Funcionario;
-
-import java.sql.SQLException;
+import Utils.Sessao;
 
 public class UsuarioFuncionario {
 
@@ -17,9 +16,14 @@ public class UsuarioFuncionario {
 
         String senhaHash = Utils.HashUtil.gerarMD5(senha);
         Model.Usuario.UsuarioFuncionario uf = df.getUsuarioFuncionarioDAO().buscarPorUsuario(usuario);
+        
+        if(uf == null)
+            return null;
 
-        if(uf.getUsuario().equals(usuario) && uf.getSenha().equals(senhaHash))
-            return uf.getFuncionario();
+        if(uf.getUsuario().equals(usuario) && uf.getSenha().equals(senhaHash)){
+            Sessao.setFuncionarioLogado(uf.getFuncionario());
+            return Sessao.getFuncionarioLogado();
+        }
         else
             return null;
     }

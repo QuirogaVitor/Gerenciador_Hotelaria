@@ -16,7 +16,7 @@ public class FuncionarioDAO {
 
     public void inserir(Funcionario funcionario) {
 
-        String sql = "INSERT INTO funcionario (id, nome, cpf, email, telefone, data_nascimento, id_tipo) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario (id, nome, cpf, email, telefone, data_nascimento, tipo) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, funcionario.getNome());
@@ -34,7 +34,7 @@ public class FuncionarioDAO {
 
     public void atualizar(Funcionario funcionario) {
         try{
-            String sql = "UPDATE funcionario SET nome=?, email=?, telefone=?, data_nascimento=?, id_tipo=? WHERE cpf=?";
+            String sql = "UPDATE funcionario SET nome=?, email=?, telefone=?, data_nascimento=?, tipo=? WHERE cpf=?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, funcionario.getNome());
             stmt.setString(2, funcionario.getCpf());
@@ -76,7 +76,7 @@ public class FuncionarioDAO {
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
-                f.setCargo(Cargo.fromId(rs.getInt("id_tipo")));
+                f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
             }
             rs.close();
@@ -100,7 +100,7 @@ public class FuncionarioDAO {
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
-                f.setCargo(Cargo.fromId(rs.getInt("id_tipo")));
+                f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
                 lista.add(f);
             }
@@ -126,7 +126,7 @@ public class FuncionarioDAO {
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
-                f.setCargo(Cargo.fromId(rs.getInt("id_tipo")));
+                f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
             }
             rs.close();

@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,7 +21,7 @@ public class TelaLogin extends Application {
     private Button botaoEntrarLogin;
 
     @FXML
-    private TextField campoSenha;
+    private PasswordField campoSenha;
 
     @FXML
     private TextField campoUsuario;
@@ -33,7 +34,7 @@ public class TelaLogin extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/TelaLoginFuncionario.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/TelaLogin.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Tela de Login");
         primaryStage.setScene(scene);
@@ -46,15 +47,18 @@ public class TelaLogin extends Application {
     
     @FXML
     void FazerLogin(ActionEvent event) throws SQLException {
+        this.bf = new BusinessFactory();
         Funcionario funcionarioLogado = bf.UsuarioFuncionario().FazerLogin(campoUsuario.getText(), campoSenha.getText());
 
         if (funcionarioLogado == null)
         {
             // Exibir erro na tela de usuario ou senha invalido
+            System.out.println("Login não efetuado, usuario ou senha invalidos");
             return;
         }
         // Abrir a próxima tela pois o usuario é e senha são validos
         try {
+            System.out.println("Login efetuado com sucesso!");
             Parent root = FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Funcionalidade Funcionários");
@@ -76,6 +80,11 @@ public class TelaLogin extends Application {
 
     @FXML
     void telaLoginFuncionario(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cadastrarUsuario(ActionEvent event){
 
     }
 }
