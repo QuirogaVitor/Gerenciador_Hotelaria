@@ -55,7 +55,7 @@ public class UsuarioDAO {
 
             String stringCriptografada = criptografarSenha(senha);
             stmt.setString(1, nomeUsuario);
-            stmt.setString(2,stringCriptografada);
+            stmt.setString(2, stringCriptografada);
 
             ResultSet rs = stmt.executeQuery();
 
