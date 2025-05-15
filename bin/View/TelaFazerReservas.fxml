@@ -26,7 +26,7 @@
                   <Label prefHeight="43.0" prefWidth="84.0" text="CPF do cliente:" />
                   <TextField fx:id="campoCpfBuscado" />
                   <Label prefHeight="48.0" prefWidth="92.0" text="Data a Reservar:" />
-                  <TextField fx:id="datePicker" prefHeight="25.0" prefWidth="134.0" />
+                  <TextField fx:id="campoDataReservar" prefHeight="25.0" prefWidth="134.0" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="28.0" prefWidth="92.0" />
                   <ComboBox fx:id="comboQuartoDisponivel" prefHeight="25.0" prefWidth="177.0" promptText="Quartos Disponiveis" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="33.0" prefWidth="92.0" />
