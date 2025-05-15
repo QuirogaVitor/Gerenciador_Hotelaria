@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 public class TelaFuncionario {
 
     @FXML
-    private Button botaoCadastrarCliente;
-
-    @FXML
     private Button botaoCadastrarFuncionario;
 
     @FXML
@@ -28,12 +25,7 @@ public class TelaFuncionario {
     private Button botaoServicoQuarto;
 
     @FXML
-    void cadastrarCliente(ActionEvent event) {
-
-    }
-
-    @FXML
-    void cadastrarFuncionario(ActionEvent event) {
+    void cadastrarUsuario(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
             Stage stage = new Stage();
