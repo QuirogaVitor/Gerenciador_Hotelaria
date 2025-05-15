@@ -20,6 +20,7 @@ public class UsuarioCliente {
         Cliente clienteAdicionado = df.getClienteDAO().buscarPorCpf(usuarioCliente.getCliente().getCpf());
         usuarioCliente.setCliente(clienteAdicionado);
         df.getUsuarioClienteDAO().inserir(usuarioCliente);
+        
         return "Sucesso";
     }
 }
