@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 import Data.ClienteDAO;
+import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
+import Business.BusinessFactory;
 import Data.DAOFactory;
 import Data.QuartoDAO;
 import Data.ReservaDAO;
@@ -15,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -46,24 +52,38 @@ public class TelaFazerReservas {
 
     private Cliente clienteSelecionado;
 
+    BusinessFactory bf;
+
+    @FXML
+    public void initialize() {
+        bf = new BusinessFactory();
+    }
+
     @FXML
     void verificarCliente(ActionEvent event) {
         String cpf = campoCpf.getText();
 
-        DAOFactory daoFactory = new DAOFactory();
-        ClienteDAO clienteDAO = daoFactory.getClienteDAO();
-        Cliente cliente = clienteDAO.buscarPorCpf(cpf);
+        try{
+            Cliente cliente = bf.Cliente().buscarPorCpf(cpf);
 
         if (cliente != null) {
             clienteSelecionado = cliente;
             campoCpfBuscado.setText(cliente.getCpf());
 
             vBoxSubTela.setVisible(true);
-            preencherQuartosDisponiveis();
+            preencherQuartosDisponiveis(LocalDate.MIN);
         } else {
             abrirTelaCadastro(event);
         }
+
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }
+
+
 
     private void abrirTelaCadastro(ActionEvent event) {
         try {
@@ -77,17 +97,16 @@ public class TelaFazerReservas {
         }
     }
 
-    private void preencherQuartosDisponiveis() {
-        DAOFactory daoFactory = new DAOFactory();
-        QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
-        List<Quarto> quartos = quartoDAO.listarTodos();
+    private void preencherQuartosDisponiveis(LocalDate data) {
+
+        List<Quarto> quartos = bf.Quarto().BuscarQuartosDisponiveisPorData(data);
 
         for (Quarto quarto : quartos) {
-            if (quarto.getStatus() == Quarto.Status.LIVRE) {
                 comboQuartoDisponivel.getItems().add(String.valueOf(quarto.getNumero()));
             }
-        }
     }
+
+   
 
     @FXML
     void fazerReserva(ActionEvent event) {
@@ -113,7 +132,7 @@ public class TelaFazerReservas {
             ReservaDAO reservaDAO = daoFactory.getReservaDAO();
 
             Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
-            if (quarto == null || quarto.getStatus() != Quarto.Status.LIVRE) {
+            if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
                 System.out.println("Quarto inválido ou indisponivel");
                 return;
             }

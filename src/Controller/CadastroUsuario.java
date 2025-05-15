@@ -101,10 +101,8 @@ public class CadastroUsuario {
         Cargo cargoSelecionado = comboCargo.getValue();
         String msgCadastro = "";
         String senhaHash = HashUtil.gerarMD5(senha);
-
         String dataDigitada = campoDataNasc.getText(); 
-        Date dataNasc = null;
-        
+                
         try {
             if (dataDigitada.length() == 8) {
                 String dataFormatada = dataDigitada.substring(0, 4) + "-" +

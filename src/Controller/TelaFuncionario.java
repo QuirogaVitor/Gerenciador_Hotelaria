@@ -2,6 +2,10 @@ package Controller;
 
 import java.io.IOException;
 
+import javax.management.RuntimeErrorException;
+
+import Business.BusinessFactory;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +28,16 @@ public class TelaFuncionario {
     @FXML
     private Button botaoServicoQuarto;
 
+     BusinessFactory bf;
+
+    @FXML
+    public void initialize() {
+        bf = new BusinessFactory();
+    }
+
     @FXML
     private Button botaoVizualizarReservas;
+
 
     @FXML
     private Button botaoFazerReservas;
@@ -74,7 +86,8 @@ public class TelaFuncionario {
             Stage telaAtual = (Stage) botaoCadastrarFuncionario.getScene().getWindow();
             telaAtual.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
