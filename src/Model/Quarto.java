@@ -31,7 +31,7 @@ public class Quarto {
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        this.numero = numero; 
     }
 
     public Status getStatus() {

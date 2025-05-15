@@ -34,7 +34,7 @@
             <TextField fx:id="campoNome" layoutX="120.0" layoutY="108.0" prefHeight="25.0" prefWidth="134.0" />
             <TextField fx:id="campoTelefone" layoutX="312.0" layoutY="108.0" prefHeight="25.0" prefWidth="134.0" />
             <TextField fx:id="campoDataNasc" layoutX="120.0" layoutY="176.0" prefHeight="25.0" prefWidth="134.0" />
-            <TextField fx:id="campoCpf" layoutX="312.0" layoutY="176.0" prefHeight="25.0" prefWidth="134.0" />
+            <TextField fx:id="campoCPF" layoutX="312.0" layoutY="176.0" prefHeight="25.0" prefWidth="134.0" />
             <TextField fx:id="campoEmail" layoutX="120.0" layoutY="236.0" prefHeight="25.0" prefWidth="134.0" />
             <TextField fx:id="campoNomeUsuario" layoutX="312.0" layoutY="236.0" prefHeight="25.0" prefWidth="134.0" />
             <PasswordField fx:id="campoSenha" layoutX="120.0" layoutY="291.0" prefHeight="25.0" prefWidth="134.0" />

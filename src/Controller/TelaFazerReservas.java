@@ -48,9 +48,6 @@ public class TelaFazerReservas {
     @FXML
     private VBox vBoxSubTela;
 
-    @FXML
-    DatePicker datePicker;
-
     private Cliente clienteSelecionado;
 
     BusinessFactory bf;
@@ -58,10 +55,6 @@ public class TelaFazerReservas {
     @FXML
     public void initialize() {
         bf = new BusinessFactory();
-        datePicker.setOnAction(event -> {
-            LocalDate selectedDate = datePicker.getValue();
-            preencherQuartosDisponiveis(selectedDate);
-        });
     }
 
     @FXML

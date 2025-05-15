@@ -124,9 +124,9 @@ public class CadastroUsuario {
     }
 
     @FXML
-    void voltarTelaLogin(ActionEvent event) {
+    void voltarTelaFuncionario(ActionEvent event) {
         try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaLogin.fxml"));
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {

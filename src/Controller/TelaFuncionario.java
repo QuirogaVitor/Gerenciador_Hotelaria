@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.management.RuntimeErrorException;
 
+import Business.BusinessFactory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,13 +31,21 @@ public class TelaFuncionario {
     @FXML
     private Button botaoServicoQuarto;
 
+     BusinessFactory bf;
+
+    @FXML
+    public void initialize() {
+        bf = new BusinessFactory();
+    }
+
     @FXML
     void cadastrarCliente(ActionEvent event) {
 
     }
 
+
     @FXML
-    void cadastrarFuncionario(ActionEvent event) {
+    void cadastrarUsuario(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
             Stage stage = new Stage();
