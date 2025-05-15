@@ -25,6 +25,12 @@ public class TelaFuncionario {
     private Button botaoServicoQuarto;
 
     @FXML
+    private Button botaoVizualizarReservas;
+
+    @FXML
+    private Button botaoFazerReservas;
+
+    @FXML
     void cadastrarUsuario(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
@@ -56,4 +62,37 @@ public class TelaFuncionario {
 
     }
 
+    @FXML
+    void fazerReservas(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/TelaFazerReservas.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Cadastro de Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage telaAtual = (Stage) botaoCadastrarFuncionario.getScene().getWindow();
+            telaAtual.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void vizualizarReservas(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/TelaReservas.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Cadastro de Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage telaAtual = (Stage) botaoCadastrarFuncionario.getScene().getWindow();
+            telaAtual.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

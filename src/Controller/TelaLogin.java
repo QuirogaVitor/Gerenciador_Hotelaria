@@ -41,10 +41,6 @@ public class TelaLogin extends Application {
         primaryStage.show();
     }
     
-    private void abrirTela(String fxml) {
-       //Preencher com código para abrir tela com funcionalidade do admin ou usuário
-    }
-    
     @FXML
     void FazerLogin(ActionEvent event) throws SQLException {
         this.bf = new BusinessFactory();
@@ -52,11 +48,9 @@ public class TelaLogin extends Application {
 
         if (funcionarioLogado == null)
         {
-            // Exibir erro na tela de usuario ou senha invalido
             System.out.println("Login não efetuado, usuario ou senha invalidos");
             return;
         }
-        // Abrir a próxima tela pois o usuario é e senha são validos
         try {
             System.out.println("Login efetuado com sucesso!");
             Parent root = FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
@@ -78,14 +72,5 @@ public class TelaLogin extends Application {
         campoUsuario.clear();
     }
 
-    @FXML
-    void telaLoginFuncionario(ActionEvent event) {
-
-    }
-
-    @FXML
-    void cadastrarUsuario(ActionEvent event){
-
-    }
 }
 
