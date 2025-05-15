@@ -54,7 +54,7 @@ public class CadastroUsuario {
     }
 
     @FXML
-    void cadastrarUsuarioFuncionario(ActionEvent event) {
+    void cadastrarUsuario(ActionEvent event) {
         String nome = campoNome.getText();
         String cpf = campoCPF.getText();
         Date dataNasc = Date.valueOf(campoDataNasc.getText());

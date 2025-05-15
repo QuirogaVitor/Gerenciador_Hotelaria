@@ -1,7 +1,6 @@
 package Business;
 
 import Data.DAOFactory;
-import java.sql.SQLException;
 
 public class BusinessFactory {
     DAOFactory df;
