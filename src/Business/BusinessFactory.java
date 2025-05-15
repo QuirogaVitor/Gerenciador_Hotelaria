@@ -15,4 +15,12 @@ public class BusinessFactory {
     public UsuarioCliente UsuarioCliente() {
         return new UsuarioCliente(df);
     }
+
+    public Reserva Reserva() {
+        return new Reserva(df);
+    }
+
+    public Cliente Cliente(){
+        return new Cliente(df);
+    }
 }

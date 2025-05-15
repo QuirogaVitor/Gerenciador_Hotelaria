@@ -2,6 +2,9 @@ package Controller;
 
 import java.io.IOException;
 
+import javax.management.RuntimeErrorException;
+
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,4 +67,38 @@ public class TelaFuncionario {
 
     }
 
+    @FXML
+    void fazerReservas(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/TelaFazerReservas.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Cadastro de Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage telaAtual = (Stage) botaoCadastrarFuncionario.getScene().getWindow();
+            telaAtual.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void vizualizarReservas(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/TelaReservas.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Cadastro de Usuário");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage telaAtual = (Stage) botaoCadastrarFuncionario.getScene().getWindow();
+            telaAtual.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

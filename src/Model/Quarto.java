@@ -3,15 +3,10 @@ package Model;
 public class Quarto {
     private int id;
     private int numero;
-    private Tipo tipo;
     private Status status;
 
-    public enum Tipo {
-        LUXO, STANDARD, SIMPLES;
-    }
-
     public enum Status {
-        LIVRE, RESERVADO, OCUPADO;
+        VAZIO, RESERVADO, OCUPADO;
     }
 
     public int getId() {
@@ -25,9 +20,8 @@ public class Quarto {
     // Construtores
     public Quarto() {}
 
-    public Quarto(int numero, Tipo tipo, Status status) {
+    public Quarto(int numero, Status status) {
         this.numero = numero;
-        this.tipo = tipo;
         this.status = status;
     }
 
@@ -40,14 +34,6 @@ public class Quarto {
         this.numero = numero;
     }
 
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -58,6 +44,6 @@ public class Quarto {
 
     @Override
     public String toString() {
-        return "Quarto [numero=" + numero + ", tipo=" + tipo + ", status=" + status + "]";
+        return "Quarto [numero=" + numero + ", status=" + status + "]";
     }
 }

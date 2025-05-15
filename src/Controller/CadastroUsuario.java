@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import java.sql.Date;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class CadastroUsuario {
 
     @FXML
@@ -66,7 +68,24 @@ public class CadastroUsuario {
         Cargo cargo = Cargo.RECEPCIONISTA; // TROCAR PARA RECEBER O CARGO DE UM COMBOBOX OU ALGO ASSIM
         String msgCadastro = "";
         String senhaHash = HashUtil.gerarMD5(senha);
-        switch (tipo){
+        String dataDigitada = campoDataNasc.getText(); 
+                
+        try {
+            if (dataDigitada.length() == 8) {
+                String dataFormatada = dataDigitada.substring(0, 4) + "-" +
+                        dataDigitada.substring(4, 6) + "-" +
+                        dataDigitada.substring(6, 8);
+                dataNasc = Date.valueOf(dataFormatada);
+            } else {
+                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use: yyyyMMdd", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(null, "Data inválida. Verifique e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        switch (tipo) {
             case "Funcionario":
                 UsuarioFuncionario uf = new UsuarioFuncionario();
                 Funcionario f = new Funcionario(cargo,nome, cpf, email, telefone, dataNasc);
