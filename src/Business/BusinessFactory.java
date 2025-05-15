@@ -23,4 +23,8 @@ public class BusinessFactory {
     public Cliente Cliente(){
         return new Cliente(df);
     }
+
+    public Quarto Quarto(){
+        return new Quarto(df);
+    }
 }

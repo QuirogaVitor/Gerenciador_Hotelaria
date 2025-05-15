@@ -1,14 +1,13 @@
 package Controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import Business.BusinessFactory;
-import Data.ClienteDAO;
 import Data.DAOFactory;
 import Data.QuartoDAO;
 import Data.ReservaDAO;
@@ -17,16 +16,11 @@ import Model.Quarto;
 import Model.Reserva;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class TelaFazerReservas {
 
@@ -54,6 +48,9 @@ public class TelaFazerReservas {
     @FXML
     private VBox vBoxSubTela;
 
+    @FXML
+    DatePicker datePicker;
+
     private Cliente clienteSelecionado;
 
     BusinessFactory bf;
@@ -61,6 +58,10 @@ public class TelaFazerReservas {
     @FXML
     public void initialize() {
         bf = new BusinessFactory();
+        datePicker.setOnAction(event -> {
+            LocalDate selectedDate = datePicker.getValue();
+            preencherQuartosDisponiveis(selectedDate);
+        });
     }
 
     @FXML
@@ -75,7 +76,7 @@ public class TelaFazerReservas {
             campoCpfBuscado.setText(cliente.getCpf());
 
             vBoxSubTela.setVisible(true);
-            preencherQuartosDisponiveis();
+            preencherQuartosDisponiveis(LocalDate.MIN);
         } else {
             abrirTelaCadastro(event);
         }
@@ -86,6 +87,8 @@ public class TelaFazerReservas {
             ex.printStackTrace();
         }
     }
+
+
 
     private void abrirTelaCadastro(ActionEvent event) {
         try {
@@ -99,17 +102,16 @@ public class TelaFazerReservas {
         }
     }
 
-    private void preencherQuartosDisponiveis() {
-        DAOFactory daoFactory = new DAOFactory();
-        QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
-        List<Quarto> quartos = quartoDAO.listarTodos();
+    private void preencherQuartosDisponiveis(LocalDate data) {
+
+        List<Quarto> quartos = bf.Quarto().BuscarQuartosDisponiveisPorData(data);
 
         for (Quarto quarto : quartos) {
-            if (quarto.getStatus() == Quarto.Status.VAZIO) {
                 comboQuartoDisponivel.getItems().add(String.valueOf(quarto.getNumero()));
             }
-        }
     }
+
+   
 
     @FXML
     void fazerReserva(ActionEvent event) {
