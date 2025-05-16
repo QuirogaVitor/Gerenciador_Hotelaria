@@ -1,6 +1,10 @@
 package Business;
 
 import Data.DAOFactory;
+import Model.Quarto;
+import Model.Reserva.Status;
+
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,8 +39,11 @@ public class Reserva {
             return "Erro, código de reserva existente, tente novamente";
         }
         df.getReservaDAO().inserir(reserva);
-        if (df.getReservaDAO().buscarPorCodigo(reserva.getCodigoReserva()) != null)
+        Model.Reserva reservaFeita = df.getReservaDAO().buscarPorCodigo(reserva.getCodigoReserva());
+        if (reservaFeita != null)
         {
+            BusinessFactory bf = new BusinessFactory();
+            bf.Quarto().reservar(reservaFeita.getQuarto());
             return "Sucesso!";
         }
         return "Erro inserindo nova reserva";
@@ -114,6 +121,44 @@ public class Reserva {
         }
         
         return reservasFiltradas;
+    }
+
+    public String fazerCheckIn(int codigoReserva)
+    {
+        Model.Reserva reserva = df.getReservaDAO().buscarPorCodigo(codigoReserva);
+        if (reserva != null)
+        {
+            reserva.setDataCheckin(LocalDate.now());
+            reserva.setStatus(Status.OCUPADO);
+            df.getReservaDAO().atualizar(reserva);
+            BusinessFactory bf = new BusinessFactory();
+            bf.Quarto().checkin(reserva.getQuarto());
+            return "Sucesso!";
+        }
+        
+        return "Erro, reserva não encontrada";
+        
+    }
+
+    public String fazerCheckOut(int numeroQuarto)
+    {
+        Model.Reserva reserva = df.getReservaDAO().buscarAtivaPorNumeroQuarto(numeroQuarto);
+        if (reserva != null)
+        {
+            reserva.setDataCheckout(LocalDate.now());
+            reserva.setStatus(Status.FINALIZADO);
+            df.getReservaDAO().atualizar(reserva);
+            BusinessFactory bf = new BusinessFactory();
+            bf.Quarto().checkout(reserva.getQuarto());
+            return "Sucesso";
+        }
+
+        return "Erro ao fazer Checkout";
+    }
+
+    public List<Model.Reserva>listar()
+    {
+        return df.getReservaDAO().listarTodos();
     }
 
     

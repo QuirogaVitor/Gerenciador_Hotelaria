@@ -15,6 +15,16 @@ public class Quarto {
         this.df =  df;
     }
 
+    public Model.Quarto buscarQuartoPorNumero(int numeroQuarto)
+    {
+        Model.Quarto quarto = df.getQuartoDAO().buscarPorNumero(numeroQuarto);
+        if (quarto != null)
+        {
+            return quarto;
+        }
+        return null;
+    }
+
     public List<Model.Quarto>BuscarQuartosDisponiveisPorData(LocalDate data){
         return df.getQuartoDAO().buscarQuartosDisponiveisPorData(data);
     }
@@ -39,6 +49,31 @@ public class Quarto {
         else
         {
             return "Erro ao inserir o novo quarto";
+        }
+    }
+    public void reservar(Model.Quarto quarto)
+    {
+        if (quarto != null)
+        {
+            quarto.setStatus(Status.RESERVADO);
+            df.getQuartoDAO().atualizar(quarto);
+        }
+    }
+
+    public void checkin(Model.Quarto quarto)
+    {
+        if (quarto != null)
+        {
+            quarto.setStatus(Status.OCUPADO);
+            df.getQuartoDAO().atualizar(quarto);
+        }
+    }
+
+    public void checkout(Model.Quarto quarto) {
+        if (quarto != null)
+        {
+            quarto.setStatus(Status.VAZIO);
+            df.getQuartoDAO().atualizar(quarto);
         }
     }
 }

@@ -111,4 +111,36 @@ public class ReservaDAO {
         }
 
     }
+
+    public Reserva buscarAtivaPorNumeroQuarto(int numeroQuarto) {
+        try{
+            String sql = """
+            SELECT r.* 
+            FROM reserva r 
+            INNER JOIN quarto q ON q.id = r.id_quarto
+            WHERE q.numero = ?
+            AND r.status_reserva = 'OCUPADO'
+            LIMIT 1;
+            """;
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, numeroQuarto);
+            ResultSet rs = stmt.executeQuery();
+            Reserva reserva = null;
+            if (rs.next()) {
+                reserva = new Reserva();
+                reserva.setCodigoReserva(rs.getInt("id"));
+                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("id_cliente")));
+                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("id_quarto")));
+                reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());
+                reserva.setDataCheckin(rs.getDate("data_checkin") != null ? rs.getDate("data_checkin").toLocalDate() : null);
+                reserva.setDataCheckout(rs.getDate("data_checkout") != null ? rs.getDate("data_checkout").toLocalDate() : null);
+                reserva.setStatus(Reserva.Status.valueOf(rs.getString("status_reserva")));
+            }
+            rs.close();
+            stmt.close();
+            return reserva;
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro SQL", ex);
+        }
+    }
 }
