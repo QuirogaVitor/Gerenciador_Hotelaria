@@ -11,13 +11,9 @@
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="640.0">
          <children>
             <Button fx:id="botaoVoltar" layoutX="80.0" layoutY="45.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
-            <Button fx:id="botaoBuscarReserva" layoutX="278.0" layoutY="289.0" mnemonicParsing="false" onAction="#buscarReserva" prefHeight="31.0" prefWidth="106.0" text="Buscar Reserva" />
+            <Button fx:id="botaoBuscarReserva" layoutX="262.0" layoutY="200.0" mnemonicParsing="false" onAction="#buscarReserva" prefHeight="31.0" prefWidth="106.0" text="Buscar Reserva" />
             <Label layoutX="262.0" layoutY="77.0" prefHeight="25.0" prefWidth="106.0" text="Código da Reserva:" />
             <TextField fx:id="campoCodigoReserva" layoutX="259.0" layoutY="113.0" prefHeight="25.0" prefWidth="144.0" />
-            <TextField fx:id="campoNumeroQuarto" layoutX="259.0" layoutY="174.0" prefHeight="25.0" prefWidth="144.0" />
-            <TextField fx:id="campoCpf" layoutX="259.0" layoutY="243.0" prefHeight="25.0" prefWidth="144.0" />
-            <Label layoutX="259.0" layoutY="149.0" prefHeight="25.0" prefWidth="112.0" text="Numero do Quarto:" />
-            <Label layoutX="259.0" layoutY="212.0" prefHeight="25.0" prefWidth="38.0" text="Cpf:" />
          </children>
       </AnchorPane>
   </children>

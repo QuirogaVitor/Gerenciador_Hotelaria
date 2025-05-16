@@ -139,7 +139,7 @@ public class TelaFazerReservas {
             return;
         }
 
-        // Gera um código de reserva único
+        
         int codigoGerado;
         do {
             codigoGerado = new Random().nextInt(999999);
