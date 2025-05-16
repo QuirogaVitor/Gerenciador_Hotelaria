@@ -13,16 +13,28 @@ public class Reserva {
 
     
 
-    public void validarReserva() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validarReserva'");
+    public boolean validarReserva(int codigo, String cpf) {
+
+        Model.Reserva reserva = df.getReservaDAO().buscarPorCodigo(codigo);
+        if (reserva != null && reserva.getCliente().getCpf() == cpf)
+        {
+            return true;
+        }
+        return false;
     }
 
 
 
-    public List<Model.Reserva> buscar(String codigo, String cpf, String quarto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+    public Model.Reserva buscar(int codigo) {
+
+        Model.Reserva reserva = df.getReservaDAO().buscarPorCodigo(codigo);
+
+        if (reserva != null)
+        {
+            return reserva;
+        }
+            return null;
+    
     }
 
     
