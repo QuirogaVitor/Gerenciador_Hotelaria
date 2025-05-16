@@ -58,6 +58,16 @@ public class TelaFazerReservas {
         botaoVerifcarCliente.setDefaultButton(true);
         botaoCriarReserva.setDefaultButton(false);
 
+        campoDataReservar.textProperty().addListener((obs, oldValue, newValue) -> {
+            if (clienteSelecionado != null && newValue != null && !newValue.isEmpty()) {
+                try {
+                    LocalDate data = LocalDate.parse(newValue);
+                    preencherQuartosDisponiveis(data);
+                } catch (Exception e) {
+                    // Ignora se a data estiver inválida enquanto o usuário digita
+                }
+            }
+        });
     }
 
     @FXML
@@ -72,7 +82,6 @@ public class TelaFazerReservas {
             campoCpfBuscado.setText(cliente.getCpf());
 
             vBoxSubTela.setVisible(true);
-            preencherQuartosDisponiveis(LocalDate.MIN);
             botaoVerifcarCliente.setDefaultButton(false);
             botaoCriarReserva.setDefaultButton(true);
         } else {
@@ -100,6 +109,7 @@ public class TelaFazerReservas {
 
     private void preencherQuartosDisponiveis(LocalDate data) {
 
+        comboQuartoDisponivel.getItems().clear();
         List<Quarto> quartos = bf.Quarto().BuscarQuartosDisponiveisPorData(data);
 
         for (Quarto quarto : quartos) {

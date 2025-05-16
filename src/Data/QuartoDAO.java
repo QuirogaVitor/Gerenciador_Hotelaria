@@ -106,7 +106,7 @@ public class QuartoDAO {
                                 SELECT q.numero
                                 FROM Reserva r
                                 inner join quarto q on q.id = r.id_quarto
-                                WHERE DATE '?' BETWEEN r.data_checkin AND r.data_checkout
+                                WHERE ? BETWEEN r.data_checkin AND r.data_checkout
                             );
                             """;
             PreparedStatement stmt = conexao.prepareStatement(sql);
