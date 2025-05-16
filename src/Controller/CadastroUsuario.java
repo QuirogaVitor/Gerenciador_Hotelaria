@@ -7,14 +7,17 @@ import Model.Funcionarios.Funcionario;
 import Model.Usuario.UsuarioCliente;
 import Model.Usuario.UsuarioFuncionario;
 import Utils.HashUtil;
+import Utils.MensagemUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
@@ -38,9 +41,6 @@ public class CadastroUsuario {
     private TextField campoCpf;
 
     @FXML
-    private TextField campoDataNasc;
-
-    @FXML
     private TextField campoEmail;
 
     @FXML
@@ -57,6 +57,9 @@ public class CadastroUsuario {
 
     @FXML
     private ComboBox<String> comboTipoUsuario;
+
+    @FXML
+    private DatePicker dataPickerDataNasc;
 
     @FXML
     private AnchorPane paneCadastro;
@@ -99,29 +102,26 @@ public class CadastroUsuario {
         String nomeUsuario = campoNomeUsuario.getText();
         String email = campoEmail.getText();
         Cargo cargoSelecionado = comboCargo.getValue();
-        String msgCadastro = "";
-        String senhaHash = HashUtil.gerarMD5(senha);
-        String dataDigitada = campoDataNasc.getText(); 
-                
-        try {
-            if (dataDigitada.length() == 8) {
-                String dataFormatada = dataDigitada.substring(0, 4) + "-" +
-                        dataDigitada.substring(4, 6) + "-" +
-                        dataDigitada.substring(6, 8);
-                dataNasc = Date.valueOf(dataFormatada);
-            } else {
-                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use: yyyyMMdd", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }catch(IllegalArgumentException e){
-            JOptionPane.showMessageDialog(null, "Data inválida. Verifique e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        LocalDate dataDigitada = dataPickerDataNasc.getValue();
+
+        if (nome.isEmpty() || cpf.isEmpty() || telefone.isEmpty() || senha.isEmpty() ||
+                tipo == null || nomeUsuario.isEmpty() || email.isEmpty() || dataDigitada == null) {
+            MensagemUtil.exibirErro("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
+
+        if (tipo.equals("Funcionario") && cargoSelecionado == null) {
+            MensagemUtil.exibirErro("Por favor, selecione o cargo do funcionário.");
+            return;
+        }
+
+        String senhaHash = HashUtil.gerarMD5(senha);
+        String msgCadastro = "";
 
         switch (tipo) {
             case "Funcionario":
                 UsuarioFuncionario uf = new UsuarioFuncionario();
-                Funcionario f = new Funcionario(cargoSelecionado, nome, cpf, email, telefone, dataNasc);
+                Funcionario f = new Funcionario(cargoSelecionado, nome, cpf, email, telefone, dataDigitada);
                 uf.setFuncionario(f);
                 uf.setUsuario(nomeUsuario);
                 uf.setSenha(senhaHash);
@@ -129,25 +129,20 @@ public class CadastroUsuario {
                 break;
             case "Cliente":
                 UsuarioCliente uc = new UsuarioCliente();
-                Cliente c = new Cliente(nome, cpf, email, telefone, dataNasc);
+                Cliente c = new Cliente(nome, cpf, email, telefone, dataDigitada);
                 uc.setCliente(c);
                 uc.setUsuario(nomeUsuario);
                 uc.setSenha(senhaHash);
                 msgCadastro = businessFactory.UsuarioCliente().CadastrarUsuario(uc);
                 break;
-
         }
+
         if (!msgCadastro.equals("Sucesso")) {
-            
-            // Exibe a mensagem de erro retornada de
-            // Business.UsuarioFuncionario.CadastrarUsuario() que esta em msgCadastro na
-            // tela da view
-            JOptionPane.showMessageDialog(null, msgCadastro, "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+            MensagemUtil.exibirErro(msgCadastro);
+        } else {
+            MensagemUtil.exibirSucesso("Usuário cadastrado com sucesso!");
+            limparCadastro(null); // limpa os campos após sucesso
         }
-
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            // Exibe mensagem de cadastrado com sucesso e volta a tela
     }
 
     @FXML
@@ -156,7 +151,7 @@ public class CadastroUsuario {
         campoSenha.clear();
         campoCpf.clear();
         campoTelefone.clear();
-        campoDataNasc.clear();
+        dataPickerDataNasc.setValue(null);
         comboTipoUsuario.setValue(null);
         campoNomeUsuario.clear();
     }

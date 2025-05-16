@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
-import Data.ClienteDAO;
-import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
 
 import Business.BusinessFactory;
@@ -16,11 +13,12 @@ import Data.ReservaDAO;
 import Model.Cliente;
 import Model.Quarto;
 import Model.Reserva;
+import Utils.MensagemUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -57,6 +55,9 @@ public class TelaFazerReservas {
     @FXML
     public void initialize() {
         bf = new BusinessFactory();
+        botaoVerifcarCliente.setDefaultButton(true);
+        botaoCriarReserva.setDefaultButton(false);
+
     }
 
     @FXML
@@ -72,13 +73,15 @@ public class TelaFazerReservas {
 
             vBoxSubTela.setVisible(true);
             preencherQuartosDisponiveis(LocalDate.MIN);
+            botaoVerifcarCliente.setDefaultButton(false);
+            botaoCriarReserva.setDefaultButton(true);
         } else {
             abrirTelaCadastro(event);
         }
 
         }catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(null, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            MensagemUtil.exibirErro("CPF inválido");
             ex.printStackTrace();
         }
     }
@@ -87,10 +90,8 @@ public class TelaFazerReservas {
 
     private void abrirTelaCadastro(ActionEvent event) {
         try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader
-                    .load(getClass().getResource("/View/CadastroUsuario.fxml"));
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene()
-                    .getWindow();
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,11 +116,12 @@ public class TelaFazerReservas {
 
         if (clienteSelecionado == null) {
             System.out.println("Cliente não selecionado");
+            MensagemUtil.exibirAviso("Cliente não selecionado");
             return;
         }
 
         if (dataReservadaStr == null || numeroQuartoStr == null) {
-            System.out.println("Preencha todos os campos");
+            MensagemUtil.exibirAviso("Preencha todos os campos");
             return;
         }
 
@@ -133,7 +135,7 @@ public class TelaFazerReservas {
 
             Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
             if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
-                System.out.println("Quarto inválido ou indisponivel");
+                MensagemUtil.exibirErro("Quarto Inválido ou indisponivel");
                 return;
             }
 
@@ -150,7 +152,7 @@ public class TelaFazerReservas {
             quarto.setStatus(Quarto.Status.RESERVADO);
             quartoDAO.atualizar(quarto);
 
-            System.out.println("Reserva realizada com sucesso!");
+            MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
 
             campoDataReservar.clear();
             comboQuartoDisponivel.setValue(null);
@@ -160,7 +162,7 @@ public class TelaFazerReservas {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erro ao fazer a reserva.");
+            MensagemUtil.exibirErro("Erro ao fazer a reserva");
         }
     }
 
@@ -169,10 +171,8 @@ public class TelaFazerReservas {
         vBoxSubTela.setVisible(false);
         campoCpf.clear();
         try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader
-                    .load(getClass().getResource("/View/TelaFuncionario.fxml"));
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene()
-                    .getWindow();
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {
             e.printStackTrace();

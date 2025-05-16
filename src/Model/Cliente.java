@@ -1,20 +1,21 @@
 package Model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Cliente {
     private String nome;
     private String cpf;
     private String email;
     private String telefone;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private int clienteId;
 
     // Construtor
 
     public Cliente(){ }
 
-    public Cliente(String nome, String cpf, String email, String telefone, Date dataNascimento) {
+    public Cliente(String nome, String cpf, String email, String telefone, LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -55,11 +56,11 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

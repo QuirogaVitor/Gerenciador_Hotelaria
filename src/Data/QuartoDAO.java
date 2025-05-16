@@ -15,10 +15,10 @@ public class QuartoDAO {
 
     public void inserir(Quarto quarto) {
         try{
-            String sql = "INSERT INTO quarto (id, numero, status) VALUES (DEFAULT, ?, ?, ?)";
+            String sql = "INSERT INTO quarto (id, numero, status) VALUES (DEFAULT, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, quarto.getNumero());
-            stmt.setString(3, quarto.getStatus().name()); // Salva o status do quarto como string
+            stmt.setString(2, quarto.getStatus().name()); // Salva o status do quarto como string
             stmt.executeUpdate();
             stmt.close();
         }catch(SQLException ex){

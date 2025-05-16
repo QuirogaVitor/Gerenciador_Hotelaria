@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaLogin">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaLogin">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="241.0" layoutX="204.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="266.0" />
             <Label alignment="CENTER" layoutX="246.0" layoutY="84.0" prefHeight="23.0" prefWidth="63.0" text="Usuario">
@@ -30,7 +30,7 @@
                <font>
                   <Font size="14.0" />
                </font></PasswordField>
-            <Button fx:id="botaoEntrarLogin" layoutX="251.0" layoutY="238.0" mnemonicParsing="false" onAction="#FazerLogin" prefHeight="30.0" prefWidth="173.0" style="-fx-background-color: black;" text="Entrar" textFill="WHITE">
+            <Button fx:id="botaoEntrarLogin" defaultButton="true" layoutX="251.0" layoutY="238.0" mnemonicParsing="false" onAction="#FazerLogin" prefHeight="30.0" prefWidth="173.0" style="-fx-background-color: black;" text="Entrar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font></Button>

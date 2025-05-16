@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import Business.BusinessFactory;
 import Model.Funcionarios.Funcionario;
+import Utils.MensagemUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class TelaLogin extends Application {
 
         if (funcionarioLogado == null)
         {
-            System.out.println("Login não efetuado, usuario ou senha invalidos");
+            MensagemUtil.exibirErro("Login não efetuado, usuário ou senha invalidos");
             return;
         }
         try {

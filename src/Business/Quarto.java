@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import Data.DAOFactory;
-import Model.Quarto;
 import Model.Quarto.Status;
 
 public class Quarto {
@@ -41,5 +40,5 @@ public class Quarto {
         {
             return "Erro ao inserir o novo quarto";
         }
-=    }
+    }
 }

@@ -5,6 +5,7 @@ import Model.Enums.Funcao;
 import Model.Quarto;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Funcionario {
     private Funcao funcaoAtual;
@@ -14,13 +15,13 @@ public class Funcionario {
     private String cpf;
     private String email;
     private String telefone;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     public Funcionario(){
 
     }
 
-    public Funcionario(Cargo cargo, String nome, String cpf, String email, String telefone, Date dataNascimento) {
+    public Funcionario(Cargo cargo, String nome, String cpf, String email, String telefone, LocalDate dataNascimento) {
         this.cargo = cargo;
         this.nome = nome;
         this.cpf = cpf;
@@ -50,11 +51,11 @@ public class Funcionario {
         throw new UnsupportedOperationException("Unimplemented method 'CadastrarFuncionario'");
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

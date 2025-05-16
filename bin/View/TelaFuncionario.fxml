@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaFuncionario">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaFuncionario">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="644.0" VBox.vgrow="ALWAYS">
          <children>
             <Label layoutX="266.0" layoutY="38.0" prefHeight="24.0" prefWidth="108.0" text="Hotel lorem ipsum" />
             <Button fx:id="botaoCheckIn" layoutX="141.0" layoutY="105.0" mnemonicParsing="false" onAction="#fazerCheckIn" prefHeight="24.0" prefWidth="108.0" style="-fx-background-color: black;" text="Fazer check-in" textFill="#f5f5f5" />
@@ -16,6 +16,7 @@
             <Button fx:id="botaoCadastrarFuncionario" layoutX="141.0" layoutY="234.0" mnemonicParsing="false" onAction="#cadastrarUsuario" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: black;" text="Cadastrar Usuario" textFill="#f5f5f5" />
             <Button fx:id="botaoFazerReservas" layoutX="141.0" layoutY="166.0" mnemonicParsing="false" onAction="#fazerReservas" prefHeight="25.0" prefWidth="127.0" style="-fx-background-color: black;" text="Fazer Reservas" textFill="WHITE" />
             <Button fx:id="botaoVizualizarReservas" layoutX="395.0" layoutY="166.0" mnemonicParsing="false" onAction="#vizualizarReservas" prefHeight="25.0" prefWidth="127.0" style="-fx-background-color: black;" text="Vizualizar Reservas" textFill="WHITE" />
+            <Button fx:id="botaoCriarQuarto" layoutX="141.0" layoutY="292.0" mnemonicParsing="false" onAction="#criarQuarto" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: black;" text="Criar Quarto" textFill="#f5f5f5" />
          </children>
     </AnchorPane>
   </children>

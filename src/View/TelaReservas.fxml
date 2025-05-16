@@ -4,20 +4,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaReservas">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaReservas">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView layoutX="79.0" layoutY="50.0" prefHeight="336.0" prefWidth="482.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="50.0">
+            <TableView fx:id="tabelaReservas" layoutX="162.0" layoutY="50.0" prefHeight="336.0" prefWidth="474.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
               <columns>
-                <TableColumn prefWidth="113.0" text="Quarto" />
-                <TableColumn prefWidth="145.0" text="Situação" />
-                  <TableColumn prefWidth="113.0" text="Entrada" />
-                  <TableColumn prefWidth="110.0" text="Saída" />
+                  <TableColumn fx:id="colunaCodigo" prefWidth="83.0" text="Codigo" />
+                <TableColumn fx:id="colunaQuarto" prefWidth="75.0" text="Quarto" />
+                <TableColumn fx:id="colunaStatus" prefWidth="116.0" text="Status" />
+                  <TableColumn fx:id="colunaDataEntrada" prefWidth="101.0" text="Entrada" />
+                  <TableColumn fx:id="colunaDataSaida" prefWidth="98.0" text="Saída" />
               </columns>
             </TableView>
             <Label alignment="CENTER" layoutX="278.0" layoutY="14.0" prefHeight="26.0" prefWidth="76.0" text="Reservas">
@@ -26,6 +28,13 @@
                </font>
             </Label>
             <Button fx:id="botaoVoltar" layoutX="43.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" text="Voltar" />
+            <Label layoutX="17.0" layoutY="75.0" prefHeight="25.0" prefWidth="100.0" text="Digite o código:" />
+            <Label layoutX="22.0" layoutY="152.0" prefHeight="25.0" prefWidth="100.0" text="Digite o CPF:" />
+            <Label layoutX="22.0" layoutY="227.0" prefHeight="25.0" prefWidth="115.0" text="Digite qual o quarto:" />
+            <TextField fx:id="campoCodigo" layoutX="17.0" layoutY="111.0" prefHeight="25.0" prefWidth="123.0" />
+            <TextField fx:id="campoCpf" layoutX="17.0" layoutY="188.0" prefHeight="25.0" prefWidth="123.0" />
+            <TextField fx:id="campoQuarto" layoutX="17.0" layoutY="264.0" prefHeight="25.0" prefWidth="123.0" />
+            <Button fx:id="botaoPesquisar" defaultButton="true" layoutX="17.0" layoutY="315.0" mnemonicParsing="false" onAction="#pesquisarReserva" prefHeight="25.0" prefWidth="123.0" text="Pesquisar" />
          </children>
     </AnchorPane>
   </children>
