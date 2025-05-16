@@ -112,58 +112,64 @@ public class TelaFazerReservas {
     @FXML
     void fazerReserva(ActionEvent event) {
         String dataReservadaStr = campoDataReservar.getText();
-        String numeroQuartoStr = comboQuartoDisponivel.getValue();
+    String numeroQuartoStr = comboQuartoDisponivel.getValue();
 
-        if (clienteSelecionado == null) {
-            System.out.println("Cliente não selecionado");
-            MensagemUtil.exibirAviso("Cliente não selecionado");
+    if (clienteSelecionado == null) {
+        System.out.println("Cliente não selecionado");
+        MensagemUtil.exibirAviso("Cliente não selecionado");
+        return;
+    }
+
+    if (dataReservadaStr == null || numeroQuartoStr == null) {
+        MensagemUtil.exibirAviso("Preencha todos os campos");
+        return;
+    }
+
+    try {
+        LocalDate dataReservada = LocalDate.parse(dataReservadaStr);
+        int numeroQuarto = Integer.parseInt(numeroQuartoStr.trim());
+
+        DAOFactory daoFactory = new DAOFactory();
+        QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
+        ReservaDAO reservaDAO = daoFactory.getReservaDAO();
+
+        Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
+        if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
+            MensagemUtil.exibirErro("Quarto inválido ou indisponível");
             return;
         }
 
-        if (dataReservadaStr == null || numeroQuartoStr == null) {
-            MensagemUtil.exibirAviso("Preencha todos os campos");
-            return;
-        }
+        // Gera um código de reserva único
+        int codigoGerado;
+        do {
+            codigoGerado = new Random().nextInt(999999);
+        } while (bf.Reserva().buscar(codigoGerado) != null);
 
-        try {
-            LocalDate dataReservada = LocalDate.parse(dataReservadaStr);
-            int numeroQuarto = Integer.parseInt(numeroQuartoStr);
+        Reserva reserva = new Reserva();
+        reserva.setCodigoReserva(codigoGerado);
+        reserva.setCliente(clienteSelecionado);
+        reserva.setQuarto(quarto);
+        reserva.setDataReserva(dataReservada);
+        reserva.setDataCheckin(null);
+        reserva.setDataCheckout(null);
 
-            DAOFactory daoFactory = new DAOFactory();
-            QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
-            ReservaDAO reservaDAO = daoFactory.getReservaDAO();
+        reservaDAO.inserir(reserva);
 
-            Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
-            if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
-                MensagemUtil.exibirErro("Quarto Inválido ou indisponivel");
-                return;
-            }
+        quarto.setStatus(Quarto.Status.RESERVADO);
+        quartoDAO.atualizar(quarto);
 
-            Reserva reserva = new Reserva();
-            reserva.setCodigoReserva(new Random().nextInt(999999));
-            reserva.setCliente(clienteSelecionado);
-            reserva.setQuarto(quarto);
-            reserva.setDataReserva(dataReservada);
-            reserva.setDataCheckin(null);
-            reserva.setDataCheckout(null);
+        MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
 
-            reservaDAO.inserir(reserva);
+        campoDataReservar.clear();
+        comboQuartoDisponivel.setValue(null);
+        vBoxSubTela.setVisible(false);
+        campoCpf.clear();
+        campoCpfBuscado.clear();
 
-            quarto.setStatus(Quarto.Status.RESERVADO);
-            quartoDAO.atualizar(quarto);
-
-            MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
-
-            campoDataReservar.clear();
-            comboQuartoDisponivel.setValue(null);
-            vBoxSubTela.setVisible(false);
-            campoCpf.clear();
-            campoCpfBuscado.clear();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            MensagemUtil.exibirErro("Erro ao fazer a reserva");
-        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        MensagemUtil.exibirErro("Erro ao fazer a reserva");
+    }
     }
 
     @FXML

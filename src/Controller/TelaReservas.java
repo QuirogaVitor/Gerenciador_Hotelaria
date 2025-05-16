@@ -6,6 +6,7 @@ import java.util.List;
 import Business.BusinessFactory;
 import Model.Quarto;
 import Model.Reserva;
+import Utils.MensagemUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,19 +70,45 @@ public class TelaReservas {
 
     @FXML
     void pesquisarReserva(ActionEvent event) {
-        String codigo = campoCodigo.getText();
-        String cpf = campoCpf.getText();
-        String quarto = campoQuarto.getText();
-        List<Reserva> resultado = bf.Reserva().buscar(codigo, cpf, quarto);
+        String textoCodigo = campoCodigo.getText().trim();
+        String cpf = campoCpf.getText().trim();
+        String textoQuarto = campoQuarto.getText().trim();
 
+        Integer codigo = null;
+        Integer numeroQuarto = null;
+
+        
+        if (!textoCodigo.isEmpty()) {
+            try {
+                codigo = Integer.parseInt(textoCodigo);
+            } catch (NumberFormatException e) {
+                MensagemUtil.exibirErro("O código da reserva deve ser um número inteiro.");
+                return;
+            }
+        }
+
+        
+        if (!textoQuarto.isEmpty()) {
+            try {
+                numeroQuarto = Integer.parseInt(textoQuarto);
+            } catch (NumberFormatException e) {
+                MensagemUtil.exibirErro("O número do quarto deve ser um número inteiro.");
+                return;
+            }
+        }
+
+        
+        List<Reserva> resultado = bf.Reserva().buscarComFiltros(codigo, cpf, numeroQuarto);
         listaReservas.setAll(resultado);
     }
 
     @FXML
     void voltarTelaFuncionario(ActionEvent event) {
         try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaFuncionario.fxml"));
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader
+                    .load(getClass().getResource("/View/TelaFuncionario.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene()
+                    .getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
