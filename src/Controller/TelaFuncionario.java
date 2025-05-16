@@ -26,6 +26,9 @@ public class TelaFuncionario {
     private Button botaoCheckOut;
 
     @FXML
+    private Button botaoCriarQuarto;
+    
+    @FXML
     private Button botaoServicoQuarto;
 
      BusinessFactory bf;
@@ -107,5 +110,11 @@ public class TelaFuncionario {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void criarQuarto(ActionEvent event) {
+        
+        
     }
 }
