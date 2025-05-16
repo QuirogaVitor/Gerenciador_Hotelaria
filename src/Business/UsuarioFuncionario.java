@@ -34,14 +34,20 @@ public class UsuarioFuncionario {
         // Podemos usar alguma lógica para validar o usuario antes de cadastrar, tipo validar CNPJ, ver se a idade é maior de 18, etc... !IMPORTANTE
         // Fazer os IFs, se não passar devolve uma mensagem de erro na String de retorno com o campo que não foi validado
 
-        if (Sessao.getFuncionarioLogado().getCargo() != Cargo.GERENTE)
+        Funcionario funcionarioLogado = Sessao.getFuncionarioLogado();
+        if (funcionarioLogado.getCargo() != (Cargo.GERENTE) ){
             return "Você não tem autorização para cadastrar funcionários";
+        }
         String cpf = usuarioFuncionario.getFuncionario().getCpf();
         if (!ValidadorCPF.validarCPF(cpf))
+        {
             return "CPF Inválido";
+        }
 
         if (df.getFuncionarioDAO().buscarPorCpf(cpf) != null)
+        {
             return "Usuário já cadastrado";
+        }
 
         df.getFuncionarioDAO().inserir(usuarioFuncionario.getFuncionario());
         Funcionario funcionarioAdicionado = df.getFuncionarioDAO().buscarPorCpf(usuarioFuncionario.getFuncionario().getCpf());
