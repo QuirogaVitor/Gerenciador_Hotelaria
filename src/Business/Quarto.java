@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import Data.DAOFactory;
-import Model.Quarto;
 import Model.Quarto.Status;
 
 public class Quarto {
@@ -41,5 +40,20 @@ public class Quarto {
         {
             return "Erro ao inserir o novo quarto";
         }
-=    }
+    }
+
+    public String RemoverQuarto(int numeroDoQuarto) {
+        if (df.getQuartoDAO().buscarPorNumero(numeroDoQuarto) == null)
+        {
+            return "Quarto não existe";
+        } 
+        df.getQuartoDAO().excluir(numeroDoQuarto);
+
+        if (df.getQuartoDAO().buscarPorNumero(numeroDoQuarto) == null)
+        {
+            return "Removido com sucesso";
+        } 
+        return "Erro, quarto não removido";
+    }
+
 }
