@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+import Data.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,9 @@ public class TelaFuncionario {
     @FXML
     private Button botaoCheckOut;
 
+    @FXML
+    private Button botaoCriarQuarto;
+    
     @FXML
     private Button botaoServicoQuarto;
 
@@ -94,5 +98,11 @@ public class TelaFuncionario {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void criarQuarto(ActionEvent event) {
+        
+        
     }
 }
