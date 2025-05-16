@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 import Business.BusinessFactory;
 import Data.DAOFactory;
 import Data.QuartoDAO;
@@ -16,9 +14,9 @@ import Model.Reserva;
 import Utils.MensagemUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -40,10 +38,16 @@ public class TelaFazerReservas {
     private TextField campoCpfBuscado;
 
     @FXML
-    private TextField campoDataReservar;
+    private ComboBox<String> comboQuartoDisponivel;
 
     @FXML
-    private ComboBox<String> comboQuartoDisponivel;
+    private DatePicker dataPickerDataEntrada = new DatePicker();
+
+    @FXML
+    private DatePicker dataPickerDataSaida = new DatePicker();
+
+    @FXML
+    private DatePicker datePickerDataReservar = new DatePicker();
 
     @FXML
     private VBox vBoxSubTela;
@@ -57,15 +61,9 @@ public class TelaFazerReservas {
         bf = new BusinessFactory();
         botaoVerifcarCliente.setDefaultButton(true);
         botaoCriarReserva.setDefaultButton(false);
-
-        campoDataReservar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (clienteSelecionado != null && newValue != null && !newValue.isEmpty()) {
-                try {
-                    LocalDate data = LocalDate.parse(newValue);
-                    preencherQuartosDisponiveis(data);
-                } catch (Exception e) {
-                    // Ignora se a data estiver inválida enquanto o usuário digita
-                }
+        datePickerDataReservar.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (clienteSelecionado != null && newValue != null) {
+                preencherQuartosDisponiveis(newValue);
             }
         });
     }
@@ -74,33 +72,32 @@ public class TelaFazerReservas {
     void verificarCliente(ActionEvent event) {
         String cpf = campoCpf.getText();
 
-        try{
+        try {
             Cliente cliente = bf.Cliente().buscarPorCpf(cpf);
 
-        if (cliente != null) {
-            clienteSelecionado = cliente;
-            campoCpfBuscado.setText(cliente.getCpf());
+            if (cliente != null) {
+                clienteSelecionado = cliente;
+                campoCpfBuscado.setText(cliente.getCpf());
 
-            vBoxSubTela.setVisible(true);
-            botaoVerifcarCliente.setDefaultButton(false);
-            botaoCriarReserva.setDefaultButton(true);
-        } else {
-            abrirTelaCadastro(event);
-        }
+                vBoxSubTela.setVisible(true);
+                botaoVerifcarCliente.setDefaultButton(false);
+                botaoCriarReserva.setDefaultButton(true);
+            } else {
+                abrirTelaCadastro(event);
+            }
 
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             MensagemUtil.exibirErro("CPF inválido");
             ex.printStackTrace();
         }
     }
 
-
-
     private void abrirTelaCadastro(ActionEvent event) {
         try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/CadastroUsuario.fxml"));
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader
+                    .load(getClass().getResource("/View/CadastroUsuario.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene()
+                    .getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,73 +110,71 @@ public class TelaFazerReservas {
         List<Quarto> quartos = bf.Quarto().BuscarQuartosDisponiveisPorData(data);
 
         for (Quarto quarto : quartos) {
-                comboQuartoDisponivel.getItems().add(String.valueOf(quarto.getNumero()));
-            }
+            comboQuartoDisponivel.getItems().add(String.valueOf(quarto.getNumero()));
+        }
     }
-
-   
 
     @FXML
     void fazerReserva(ActionEvent event) {
-        String dataReservadaStr = campoDataReservar.getText();
-    String numeroQuartoStr = comboQuartoDisponivel.getValue();
+        LocalDate dataReservada = datePickerDataReservar.getValue();
+        String numeroQuartoStr = comboQuartoDisponivel.getValue();
+        LocalDate dataEntrada = dataPickerDataEntrada.getValue();
+        LocalDate dataSaida = dataPickerDataSaida.getValue();
 
-    if (clienteSelecionado == null) {
-        System.out.println("Cliente não selecionado");
-        MensagemUtil.exibirAviso("Cliente não selecionado");
-        return;
-    }
-
-    if (dataReservadaStr == null || numeroQuartoStr == null) {
-        MensagemUtil.exibirAviso("Preencha todos os campos");
-        return;
-    }
-
-    try {
-        LocalDate dataReservada = LocalDate.parse(dataReservadaStr);
-        int numeroQuarto = Integer.parseInt(numeroQuartoStr.trim());
-
-        DAOFactory daoFactory = new DAOFactory();
-        QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
-        ReservaDAO reservaDAO = daoFactory.getReservaDAO();
-
-        Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
-        if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
-            MensagemUtil.exibirErro("Quarto inválido ou indisponível");
+        if (clienteSelecionado == null) {
+            System.out.println("Cliente não selecionado");
+            MensagemUtil.exibirAviso("Cliente não selecionado");
             return;
         }
 
-        
-        int codigoGerado;
-        do {
-            codigoGerado = new Random().nextInt(999999);
-        } while (bf.Reserva().buscar(codigoGerado) != null);
+        if (dataReservada == null || numeroQuartoStr == null || dataEntrada == null || dataSaida == null) {
+            MensagemUtil.exibirAviso("Preencha todos os campos");
+            return;
+        }
 
-        Reserva reserva = new Reserva();
-        reserva.setCodigoReserva(codigoGerado);
-        reserva.setCliente(clienteSelecionado);
-        reserva.setQuarto(quarto);
-        reserva.setDataReserva(dataReservada);
-        reserva.setDataCheckin(null);
-        reserva.setDataCheckout(null);
+        try {
+            int numeroQuarto = Integer.parseInt(numeroQuartoStr.trim());
 
-        reservaDAO.inserir(reserva);
+            DAOFactory daoFactory = new DAOFactory();
+            QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
+            ReservaDAO reservaDAO = daoFactory.getReservaDAO();
 
-        quarto.setStatus(Quarto.Status.RESERVADO);
-        quartoDAO.atualizar(quarto);
+            Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
+            if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
+                MensagemUtil.exibirErro("Quarto inválido ou indisponível");
+                return;
+            }
 
-        MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
+            int codigoGerado;
+            do {
+                codigoGerado = new Random().nextInt(999999);
+            } while (bf.Reserva().buscar(codigoGerado) != null);
 
-        campoDataReservar.clear();
-        comboQuartoDisponivel.setValue(null);
-        vBoxSubTela.setVisible(false);
-        campoCpf.clear();
-        campoCpfBuscado.clear();
+            Reserva reserva = new Reserva();
+            reserva.setCodigoReserva(codigoGerado);
+            reserva.setCliente(clienteSelecionado);
+            reserva.setQuarto(quarto);
+            reserva.setDataReserva(dataReservada);
+            reserva.setDataCheckin(dataEntrada);
+            reserva.setDataCheckout(dataSaida);
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        MensagemUtil.exibirErro("Erro ao fazer a reserva");
-    }
+            reservaDAO.inserir(reserva);
+
+            quarto.setStatus(Quarto.Status.RESERVADO);
+            quartoDAO.atualizar(quarto);
+
+            MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
+
+            datePickerDataReservar.setValue(null);
+            comboQuartoDisponivel.setValue(null);
+            vBoxSubTela.setVisible(false);
+            campoCpf.clear();
+            campoCpfBuscado.clear();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MensagemUtil.exibirErro("Erro ao fazer a reserva");
+        }
     }
 
     @FXML
