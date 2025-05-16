@@ -22,7 +22,7 @@ public class FuncionarioDAO {
             stmt.setString(2, funcionario.getCpf());
             stmt.setString(3, funcionario.getEmail());
             stmt.setString(4, funcionario.getTelefone());
-            stmt.setDate(5, funcionario.getDataNascimento());
+            stmt.setDate(5, Date.valueOf(funcionario.getDataNascimento()));
             stmt.setInt(6, funcionario.getCargo().getId());
             stmt.executeUpdate();
             stmt.close();
@@ -39,7 +39,7 @@ public class FuncionarioDAO {
             stmt.setString(2, funcionario.getCpf());
             stmt.setString(3, funcionario.getEmail());
             stmt.setString(4, funcionario.getTelefone());
-            stmt.setDate(5, funcionario.getDataNascimento());
+            stmt.setDate(5, Date.valueOf(funcionario.getDataNascimento()));
             stmt.setInt(6, funcionario.getCargo().getId());
             stmt.executeUpdate();
             stmt.close();
@@ -74,7 +74,7 @@ public class FuncionarioDAO {
                 f.setCpf(rs.getString("cpf"));
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
-                f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
+                f.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
                 f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
             }
@@ -98,7 +98,7 @@ public class FuncionarioDAO {
                 f.setCpf(rs.getString("cpf"));
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
-                f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
+                f.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
                 f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
                 lista.add(f);
@@ -124,7 +124,7 @@ public class FuncionarioDAO {
                 f.setCpf(rs.getString("cpf"));
                 f.setEmail(rs.getString("email"));
                 f.setTelefone(rs.getString("telefone"));
-                f.setDataNascimento(Date.valueOf(rs.getDate("data_nascimento").toLocalDate()));
+                f.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
                 f.setCargo(Cargo.fromId(rs.getInt("tipo")));
                 f.setFuncionarioId(rs.getInt("id"));
             }

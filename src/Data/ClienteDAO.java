@@ -1,6 +1,7 @@
 package Data;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import Model.*;
 
@@ -19,7 +20,7 @@ public class ClienteDAO {
             stmt.setString(2, cliente.getCpf());
             stmt.setString(3, cliente.getEmail());
             stmt.setString(4, cliente.getTelefone());
-            stmt.setDate(5, cliente.getDataNascimento());
+            stmt.setDate(5, Date.valueOf(cliente.getDataNascimento()));
             stmt.executeUpdate();
             stmt.close();
         }catch(SQLException ex){
@@ -34,7 +35,7 @@ public class ClienteDAO {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getEmail());
             stmt.setString(3, cliente.getTelefone());
-            stmt.setDate(4, cliente.getDataNascimento());
+            stmt.setDate(4, Date.valueOf(cliente.getDataNascimento()));
             stmt.setString(5, cliente.getCpf());
             stmt.executeUpdate();
             stmt.close();
@@ -70,7 +71,7 @@ public class ClienteDAO {
                 c.setCpf(rs.getString("cpf"));
                 c.setEmail(rs.getString("email"));
                 c.setTelefone(rs.getString("telefone"));
-                c.setDataNascimento(rs.getDate("data_nascimento"));
+                c.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
             }
             rs.close();
             stmt.close();
@@ -92,7 +93,7 @@ public class ClienteDAO {
                 c.setCpf(rs.getString("cpf"));
                 c.setEmail(rs.getString("email"));
                 c.setTelefone(rs.getString("telefone"));
-                c.setDataNascimento(rs.getDate("data_nascimento"));
+                c.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
                 c.setClienteId(rs.getInt("id"));
                 lista.add(c);
             }
