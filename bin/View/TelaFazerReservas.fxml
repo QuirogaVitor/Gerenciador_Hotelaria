@@ -18,10 +18,10 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="botaoVoltar" layoutX="61.0" layoutY="40.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" text="Voltar" />
+            <Button fx:id="botaoVoltar" layoutX="61.0" layoutY="40.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" style="-fx-background-color: black;" text="Voltar" textFill="WHITE" />
             <Label layoutX="129.0" layoutY="74.0" prefHeight="25.0" prefWidth="133.0" text="Insira o CPF do cliente:" />
             <TextField fx:id="campoCpf" layoutX="129.0" layoutY="108.0" />
-            <Button fx:id="botaoVerifcarCliente" layoutX="129.0" layoutY="157.0" mnemonicParsing="false" onAction="#verificarCliente" text="Verificar Cliente" />
+            <Button fx:id="botaoVerifcarCliente" layoutX="129.0" layoutY="157.0" mnemonicParsing="false" onAction="#verificarCliente" style="-fx-background-color: black;" text="Verificar Cliente" textFill="WHITE" />
             <VBox fx:id="vBoxSubTela" layoutX="378.0" layoutY="40.0" prefHeight="337.0" prefWidth="191.0" visible="false">
                <children>
                   <Label prefHeight="43.0" prefWidth="84.0" text="CPF do cliente:" />
@@ -33,7 +33,7 @@
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="28.0" prefWidth="92.0" />
                   <ComboBox fx:id="comboQuartoDisponivel" prefHeight="25.0" prefWidth="177.0" promptText="Quartos Disponiveis" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="33.0" prefWidth="92.0" />
-                  <Button fx:id="botaoCriarReserva" mnemonicParsing="false" onAction="#fazerReserva" text="Criar Reserva" />
+                  <Button fx:id="botaoCriarReserva" mnemonicParsing="false" onAction="#fazerReserva" style="-fx-background-color: black;" text="Criar Reserva" textFill="WHITE" />
                </children>
             </VBox>
          </children>

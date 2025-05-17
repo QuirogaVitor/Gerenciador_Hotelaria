@@ -42,14 +42,9 @@ public class TelaFazerCheckIn {
         
         codigo = Integer.parseInt(textoCodigo);
         if(bf.Reserva().validarReserva(codigo, cpf)){
-        
-        try {
-            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaReservas.fxml"));
-            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        bf.Reserva().fazerCheckIn(codigo);
+        MensagemUtil.exibirSucesso("Check-in realizado com sucesso!");
+       
     }else{
         MensagemUtil.exibirErro("Reserva não encontrada ou CPF inválido");
     }
