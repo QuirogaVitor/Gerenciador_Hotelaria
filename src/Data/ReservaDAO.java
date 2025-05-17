@@ -63,7 +63,7 @@ public class ReservaDAO {
 
     public Reserva buscarPorCodigo(int codigoReserva) {
         try{
-            String sql = "SELECT * FROM reserva WHERE codigo_reserva = ?";
+            String sql = "SELECT * FROM reserva WHERE id = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, codigoReserva);
             ResultSet rs = stmt.executeQuery();
@@ -71,12 +71,12 @@ public class ReservaDAO {
             if (rs.next()) {
                 reserva = new Reserva();
                 reserva.setCodigoReserva(rs.getInt("id"));
-                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("cpf_cliente")));
-                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("numero_quarto")));
+                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("id_cliente")));
+                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("id_quarto")));
                 reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());
                 reserva.setDataCheckin(rs.getDate("data_checkin") != null ? rs.getDate("data_checkin").toLocalDate() : null);
                 reserva.setDataCheckout(rs.getDate("data_checkout") != null ? rs.getDate("data_checkout").toLocalDate() : null);
-                reserva.setStatus(Reserva.Status.valueOf(rs.getString("status")));
+                reserva.setStatus(Reserva.Status.valueOf(rs.getString("status_reserva")));
             }
             rs.close();
             stmt.close();
@@ -94,13 +94,13 @@ public class ReservaDAO {
             List<Reserva> reservas = new ArrayList<>();
             while (rs.next()) {
                 Reserva reserva = new Reserva();
-                reserva.setCodigoReserva(rs.getInt("codigo_reserva"));
-                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("cpf_cliente")));
-                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("numero_quarto")));
+                reserva.setCodigoReserva(rs.getInt("id"));
+                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("id_cliente")));
+                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("id_quarto")));
                 reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());
                 reserva.setDataCheckin(rs.getDate("data_checkin") != null ? rs.getDate("data_checkin").toLocalDate() : null);
                 reserva.setDataCheckout(rs.getDate("data_checkout") != null ? rs.getDate("data_checkout").toLocalDate() : null);
-                reserva.setStatus(Reserva.Status.valueOf(rs.getString("status")));
+                reserva.setStatus(Reserva.Status.valueOf(rs.getString("status_reserva")));
                 reservas.add(reserva);
             }
             rs.close();

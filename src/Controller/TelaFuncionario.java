@@ -63,11 +63,6 @@ public class TelaFuncionario {
     }
 
     @FXML
-    void enviarServicoQuarto(ActionEvent event) {
-
-    }
-
-    @FXML
     void fazerCheckIn(ActionEvent event) {
         try {
             javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/View/TelaFazerCheckIn.fxml"));

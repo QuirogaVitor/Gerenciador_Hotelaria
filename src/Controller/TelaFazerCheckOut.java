@@ -16,13 +16,7 @@ public class TelaFazerCheckOut {
     private Button botaoVoltar;
 
     @FXML
-    private TextField campoNumeroQuarto;
-
-    @FXML
     private TextField campoCodigoReserva;
-
-    @FXML
-    private TextField campoCpf;
 
     BusinessFactory bf;
 
