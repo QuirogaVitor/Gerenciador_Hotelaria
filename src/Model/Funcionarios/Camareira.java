@@ -25,14 +25,12 @@ public class Camareira extends Funcionario {
     public void limparQuarto(int numQuarto) {
         this.funcaoAtual = Funcao.Atendendo;
         this.servicoAtual = TipoServico.Arrumacao;
-        // ADD: Lógica para exibir a tela demonstrando qual quarto o funcionario deve atender
     }
 
     public void atenderServicoDeQuarto(int numQuarto) {
         if (this.isOcupado())
             throw new RuntimeException("Funcionário já está ocupado");
         this.Ocupar();
-        // ADD: Lógica para exibir a tela demonstrando qual quarto o funcionario deve atender
     }
 }
 

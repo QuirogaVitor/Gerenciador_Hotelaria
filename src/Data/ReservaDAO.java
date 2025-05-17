@@ -1,9 +1,9 @@
 package Data;
 
+import Model.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
-import Model.*;
 
 public class ReservaDAO {
     private Connection conexao;
@@ -70,7 +70,7 @@ public class ReservaDAO {
             Reserva reserva = null;
             if (rs.next()) {
                 reserva = new Reserva();
-                reserva.setCodigoReserva(rs.getInt("codigo_reserva"));
+                reserva.setCodigoReserva(rs.getInt("id"));
                 reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("cpf_cliente")));
                 reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("numero_quarto")));
                 reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());

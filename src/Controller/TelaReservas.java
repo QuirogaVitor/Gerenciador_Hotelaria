@@ -7,9 +7,9 @@ import Business.BusinessFactory;
 import Model.Quarto;
 import Model.Reserva;
 import Utils.MensagemUtil;
+import java.awt.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -74,8 +74,8 @@ public class TelaReservas {
         String cpf = campoCpf.getText().trim();
         String textoQuarto = campoQuarto.getText().trim();
 
-        Integer codigo = null;
-        Integer numeroQuarto = null;
+        int codigo = 0;
+        int numeroQuarto = 0;
 
         
         if (!textoCodigo.isEmpty()) {

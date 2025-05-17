@@ -2,9 +2,6 @@ package Model.Funcionarios;
 
 import Model.Enums.Cargo;
 import Model.Enums.Funcao;
-import Model.Quarto;
-
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Funcionario {
@@ -40,15 +37,6 @@ public class Funcionario {
 
     public boolean isOcupado(){
         return this.funcaoAtual == Funcao.Atendendo;
-    }
-
-    private void EnviarCamareira(Camareira camareira, Quarto quarto) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'EnviarCamareira'");
-    }
-
-    public void RealizarCadastro() {
-        throw new UnsupportedOperationException("Unimplemented method 'CadastrarFuncionario'");
     }
 
     public LocalDate getDataNascimento() {
