@@ -38,13 +38,18 @@ public class Reserva {
         {
             return "Erro, código de reserva existente, tente novamente";
         }
+        if (reserva.getDataCheckout().isBefore(reserva.getDataCheckin()))
+        {
+            return "Erro, data de saída não pode ser menor que a data de entrada";
+        }
+        reserva.setStatus(Status.AGUARDANDO);
         df.getReservaDAO().inserir(reserva);
         Model.Reserva reservaFeita = df.getReservaDAO().buscarPorCodigo(reserva.getCodigoReserva());
         if (reservaFeita != null)
         {
             BusinessFactory bf = new BusinessFactory();
             bf.Quarto().reservar(reservaFeita.getQuarto());
-            return "Sucesso!";
+            return "Sucesso! Código da nova reserva é: " + reservaFeita.getCodigoReserva();
         }
         return "Erro inserindo nova reserva";
     }

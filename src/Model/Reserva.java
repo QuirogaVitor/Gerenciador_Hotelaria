@@ -11,6 +11,7 @@ public class Reserva {
     private int codigoReserva;
     private Cliente cliente;
     private Quarto quarto;
+    public int numQuarto = quarto == null ? 0 : quarto.getNumero();
     private LocalDate dataReserva;
     private LocalDate dataCheckin;
     private LocalDate dataCheckout;
@@ -19,14 +20,13 @@ public class Reserva {
     // Construtores
     public Reserva() {}
 
-    public Reserva(int codigoReserva, Cliente cliente, Quarto quarto, LocalDate dataReserva, LocalDate dataCheckin, LocalDate dataCheckout, Status status) {
+    public Reserva(int codigoReserva, Cliente cliente, Quarto quarto, LocalDate dataReserva, LocalDate dataCheckin, LocalDate dataCheckout) {
         this.codigoReserva = codigoReserva;
         this.cliente = cliente;
         this.quarto = quarto;
         this.dataReserva = dataReserva;
         this.dataCheckin = dataCheckin;
         this.dataCheckout = dataCheckout;
-        this.status = status;
     }
 
     // Getters e Setters
