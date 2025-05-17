@@ -37,7 +37,12 @@ public class TelaFazerCheckOut {
         int codigo;
         codigo = Integer.parseInt(textoCodigo);
 
-        bf.Reserva().buscar(codigo);
+        if(bf.Reserva().buscar(codigo) != null){
+            bf.Reserva().fazerCheckOut(codigo);
+            MensagemUtil.exibirSucesso("Check-out realizado com sucesso!");
+        } else {
+            MensagemUtil.exibirErro("Reserva não encontrada.");
+        }
     }
 
     @FXML

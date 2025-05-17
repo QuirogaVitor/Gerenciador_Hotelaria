@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -13,7 +12,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="tabelaReservas" layoutX="162.0" layoutY="50.0" prefHeight="336.0" prefWidth="474.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
+            <TableView fx:id="tabelaReservas" layoutX="105.0" layoutY="50.0" prefHeight="336.0" prefWidth="474.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="50.0">
               <columns>
                   <TableColumn fx:id="colunaCodigo" prefWidth="83.0" text="Codigo" />
                 <TableColumn fx:id="colunaQuarto" prefWidth="75.0" text="Quarto" />
@@ -27,14 +26,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="botaoVoltar" layoutX="43.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" text="Voltar" />
-            <Label layoutX="17.0" layoutY="75.0" prefHeight="25.0" prefWidth="100.0" text="Digite o código:" />
-            <Label layoutX="22.0" layoutY="152.0" prefHeight="25.0" prefWidth="100.0" text="Digite o CPF:" />
-            <Label layoutX="22.0" layoutY="227.0" prefHeight="25.0" prefWidth="115.0" text="Digite qual o quarto:" />
-            <TextField fx:id="campoCodigo" layoutX="17.0" layoutY="111.0" prefHeight="25.0" prefWidth="123.0" />
-            <TextField fx:id="campoCpf" layoutX="17.0" layoutY="188.0" prefHeight="25.0" prefWidth="123.0" />
-            <TextField fx:id="campoQuarto" layoutX="17.0" layoutY="264.0" prefHeight="25.0" prefWidth="123.0" />
-            <Button fx:id="botaoPesquisar" defaultButton="true" layoutX="17.0" layoutY="315.0" mnemonicParsing="false" onAction="#pesquisarReserva" prefHeight="25.0" prefWidth="123.0" text="Pesquisar" />
+            <Button fx:id="botaoVoltar" layoutX="43.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarTelaFuncionario" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: black;" text="Voltar" textFill="WHITE" />
          </children>
     </AnchorPane>
   </children>
