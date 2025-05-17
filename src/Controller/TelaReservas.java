@@ -64,8 +64,8 @@ public class TelaReservas {
         colunaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoReserva"));
         colunaQuarto.setCellValueFactory(new PropertyValueFactory<>("numQuarto"));
         colunaStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        colunaDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dataCheckIn"));
-        colunaDataSaida.setCellValueFactory(new PropertyValueFactory<>("dataCheckOut"));
+        colunaDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dataCheckin"));
+        colunaDataSaida.setCellValueFactory(new PropertyValueFactory<>("dataCheckout"));
     }
 
     @FXML

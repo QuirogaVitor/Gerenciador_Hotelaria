@@ -11,7 +11,7 @@ public class Reserva {
     private int codigoReserva;
     private Cliente cliente;
     private Quarto quarto;
-    public int numQuarto = quarto == null ? 0 : quarto.getNumero();
+    private int numQuarto;
     private LocalDate dataReserva;
     private LocalDate dataCheckin;
     private LocalDate dataCheckout;
@@ -29,6 +29,9 @@ public class Reserva {
         this.dataCheckout = dataCheckout;
     }
 
+    public int getNumQuarto(){
+        return this.quarto == null ? 0 : this.quarto.getNumero();
+    }
     // Getters e Setters
     public int getCodigoReserva() {
         return codigoReserva;
