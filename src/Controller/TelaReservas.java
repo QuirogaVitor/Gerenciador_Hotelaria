@@ -4,12 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import Business.BusinessFactory;
-import Model.Quarto;
 import Model.Reserva;
 import Utils.MensagemUtil;
-import java.awt.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -59,13 +58,14 @@ public class TelaReservas {
     @FXML
     public void initialize() {
         bf = new BusinessFactory();
+        listaReservas.addAll(bf.Reserva().listar());
         tabelaReservas.setItems(listaReservas);
 
-        colunaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        colunaQuarto.setCellValueFactory(new PropertyValueFactory<>("numeroQuarto"));
+        colunaCodigo.setCellFactory(null);;
+        colunaQuarto.setCellValueFactory(new PropertyValueFactory<>("numQuarto"));
         colunaStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        colunaDataEntrada.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
-        colunaDataSaida.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
+        colunaDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dataCheckIn"));
+        colunaDataSaida.setCellValueFactory(new PropertyValueFactory<>("dataCheckOut"));
     }
 
     @FXML
@@ -96,8 +96,6 @@ public class TelaReservas {
                 return;
             }
         }
-
-        
         List<Reserva> resultado = bf.Reserva().buscarComFiltros(codigo, cpf, numeroQuarto);
         listaReservas.setAll(resultado);
     }

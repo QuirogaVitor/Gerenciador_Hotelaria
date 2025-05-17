@@ -14,11 +14,11 @@ public class ReservaDAO {
 
     public void inserir(Reserva reserva) {
         try{
-            String sql = "INSERT INTO reserva (id, codigo_reserva, cpf_cliente, numero_quarto, data_reserva, data_checkin, data_checkout, status) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO reserva (id, id_cliente, id_quarto, data_reserva, data_checkin, data_checkout, status_reserva) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, reserva.getCodigoReserva());
-            stmt.setString(2, reserva.getCliente().getCpf());
-            stmt.setInt(3, reserva.getQuarto().getNumero());
+            stmt.setInt(2, reserva.getCliente().getClienteId());
+            stmt.setInt(3, reserva.getQuarto().getId());
             stmt.setDate(4, Date.valueOf(reserva.getDataReserva()));
             stmt.setDate(5, reserva.getDataCheckin() != null ? Date.valueOf(reserva.getDataCheckin()) : null);
             stmt.setDate(6, reserva.getDataCheckout() != null ? Date.valueOf(reserva.getDataCheckout()) : null);
@@ -32,10 +32,10 @@ public class ReservaDAO {
 
     public void atualizar(Reserva reserva) {
         try{
-            String sql = "UPDATE reserva SET cpf_cliente=?, numero_quarto=?, data_reserva=?, data_checkin=?, data_checkout=?, status=? WHERE codigo_reserva=?";
+            String sql = "UPDATE reserva SET id_cliente=?, id_quarto=?, data_reserva=?, data_checkin=?, data_checkout=?, status_reserva=? WHERE id=?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, reserva.getCliente().getCpf());
-            stmt.setInt(2, reserva.getQuarto().getNumero());
+            stmt.setInt(1, reserva.getCliente().getClienteId());
+            stmt.setInt(2, reserva.getQuarto().getId());
             stmt.setDate(3, Date.valueOf(reserva.getDataReserva()));
             stmt.setDate(4, reserva.getDataCheckin() != null ? Date.valueOf(reserva.getDataCheckin()) : null);
             stmt.setDate(5, reserva.getDataCheckout() != null ? Date.valueOf(reserva.getDataCheckout()) : null);
@@ -50,7 +50,7 @@ public class ReservaDAO {
 
     public void excluir(int codigoReserva) {
         try{
-            String sql = "DELETE FROM reserva WHERE codigo_reserva = ?";
+            String sql = "DELETE FROM reserva WHERE id = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, codigoReserva);
             stmt.executeUpdate();

@@ -101,7 +101,7 @@ public class QuartoDAO {
         try{
             String sql = """
                             SELECT q.*
-                            FROM Quarto q
+                            FROM Quarto q 
                             WHERE q.numero NOT IN (
                                 SELECT q.numero
                                 FROM Reserva r

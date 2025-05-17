@@ -26,12 +26,10 @@
                <children>
                   <Label prefHeight="43.0" prefWidth="84.0" text="CPF do cliente:" />
                   <TextField fx:id="campoCpfBuscado" />
-                  <Label layoutX="10.0" layoutY="262.0" prefHeight="48.0" prefWidth="92.0" text="Data de Entrada" />
-                  <DatePicker fx:id="dataPickerDataEntrada" layoutX="10.0" layoutY="214.0" prefHeight="25.0" prefWidth="190.0" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="48.0" prefWidth="92.0" text="Data de Saida" />
                   <DatePicker fx:id="dataPickerDataSaida" layoutX="10.0" layoutY="198.0" prefHeight="25.0" prefWidth="190.0" />
-                  <Label prefHeight="48.0" prefWidth="92.0" text="Data a Reservar:" />
-                  <DatePicker fx:id="dataPickerDataReservar" prefHeight="25.0" prefWidth="190.0" />
+                  <Label prefHeight="48.0" prefWidth="92.0" text="Data a Reservar:" /> 
+                  <DatePicker fx:id="datePickerDataReservar" prefHeight="25.0" prefWidth="190.0" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="28.0" prefWidth="92.0" />
                   <ComboBox fx:id="comboQuartoDisponivel" prefHeight="25.0" prefWidth="177.0" promptText="Quartos Disponiveis" />
                   <Label layoutX="10.0" layoutY="78.0" prefHeight="33.0" prefWidth="92.0" />

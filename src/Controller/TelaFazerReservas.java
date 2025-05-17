@@ -41,13 +41,10 @@ public class TelaFazerReservas {
     private ComboBox<String> comboQuartoDisponivel;
 
     @FXML
-    private DatePicker dataPickerDataEntrada = new DatePicker();
+    private DatePicker dataPickerDataSaida;
 
     @FXML
-    private DatePicker dataPickerDataSaida = new DatePicker();
-
-    @FXML
-    private DatePicker datePickerDataReservar = new DatePicker();
+    private DatePicker datePickerDataReservar;
 
     @FXML
     private VBox vBoxSubTela;
@@ -61,11 +58,15 @@ public class TelaFazerReservas {
         bf = new BusinessFactory();
         botaoVerifcarCliente.setDefaultButton(true);
         botaoCriarReserva.setDefaultButton(false);
-        datePickerDataReservar.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (clienteSelecionado != null && newValue != null) {
-                preencherQuartosDisponiveis(newValue);
-            }
-        });
+        if (datePickerDataReservar != null)
+        {
+            datePickerDataReservar.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (clienteSelecionado != null && newValue != null) {
+                    preencherQuartosDisponiveis(newValue);
+                }
+            });
+        }
+        
     }
 
     @FXML
@@ -118,7 +119,6 @@ public class TelaFazerReservas {
     void fazerReserva(ActionEvent event) {
         LocalDate dataReservada = datePickerDataReservar.getValue();
         String numeroQuartoStr = comboQuartoDisponivel.getValue();
-        LocalDate dataEntrada = dataPickerDataEntrada.getValue();
         LocalDate dataSaida = dataPickerDataSaida.getValue();
 
         if (clienteSelecionado == null) {
@@ -127,24 +127,14 @@ public class TelaFazerReservas {
             return;
         }
 
-        if (dataReservada == null || numeroQuartoStr == null || dataEntrada == null || dataSaida == null) {
+        if (dataReservada == null || numeroQuartoStr == null || dataSaida == null) {
             MensagemUtil.exibirAviso("Preencha todos os campos");
             return;
         }
 
         try {
             int numeroQuarto = Integer.parseInt(numeroQuartoStr.trim());
-
-            DAOFactory daoFactory = new DAOFactory();
-            QuartoDAO quartoDAO = daoFactory.getQuartoDAO();
-            ReservaDAO reservaDAO = daoFactory.getReservaDAO();
-
-            Quarto quarto = quartoDAO.buscarPorNumero(numeroQuarto);
-            if (quarto == null || quarto.getStatus() != Quarto.Status.VAZIO) {
-                MensagemUtil.exibirErro("Quarto inválido ou indisponível");
-                return;
-            }
-
+            Quarto quarto = bf.Quarto().buscarQuartoPorNumero(numeroQuarto);
             int codigoGerado;
             do {
                 codigoGerado = new Random().nextInt(999999);
@@ -154,16 +144,22 @@ public class TelaFazerReservas {
             reserva.setCodigoReserva(codigoGerado);
             reserva.setCliente(clienteSelecionado);
             reserva.setQuarto(quarto);
-            reserva.setDataReserva(dataReservada);
-            reserva.setDataCheckin(dataEntrada);
+            reserva.setDataReserva(LocalDate.now());
+            reserva.setDataCheckin(dataReservada);
             reserva.setDataCheckout(dataSaida);
 
-            reservaDAO.inserir(reserva);
+            String inserida = bf.Reserva().inserirReserva(reserva);
 
             quarto.setStatus(Quarto.Status.RESERVADO);
-            quartoDAO.atualizar(quarto);
-
-            MensagemUtil.exibirSucesso("Sucesso! Reserva realizada");
+            if (inserida == "Sucesso!")
+            {
+                MensagemUtil.exibirSucesso(inserida);
+            }
+            else
+            {
+                MensagemUtil.exibirAviso(inserida);
+                return;
+            }
 
             datePickerDataReservar.setValue(null);
             comboQuartoDisponivel.setValue(null);
