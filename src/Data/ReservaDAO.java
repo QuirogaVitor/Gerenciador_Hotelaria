@@ -71,8 +71,8 @@ public class ReservaDAO {
             if (rs.next()) {
                 reserva = new Reserva();
                 reserva.setCodigoReserva(rs.getInt("id"));
-                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("id_cliente")));
-                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("id_quarto")));
+                reserva.setCliente(new ClienteDAO(conexao).buscarPorId(rs.getInt("id_cliente")));
+                reserva.setQuarto(new QuartoDAO(conexao).bucarPorId(rs.getInt("id_quarto")));
                 reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());
                 reserva.setDataCheckin(rs.getDate("data_checkin") != null ? rs.getDate("data_checkin").toLocalDate() : null);
                 reserva.setDataCheckout(rs.getDate("data_checkout") != null ? rs.getDate("data_checkout").toLocalDate() : null);
@@ -95,8 +95,8 @@ public class ReservaDAO {
             while (rs.next()) {
                 Reserva reserva = new Reserva();
                 reserva.setCodigoReserva(rs.getInt("id"));
-                reserva.setCliente(new ClienteDAO(conexao).buscarPorCpf(rs.getString("id_cliente")));
-                reserva.setQuarto(new QuartoDAO(conexao).buscarPorNumero(rs.getInt("id_quarto")));
+                reserva.setCliente(new ClienteDAO(conexao).buscarPorId(rs.getInt("id_cliente")));
+                reserva.setQuarto(new QuartoDAO(conexao).bucarPorId(rs.getInt("id_quarto")));
                 reserva.setDataReserva(rs.getDate("data_reserva").toLocalDate());
                 reserva.setDataCheckin(rs.getDate("data_checkin") != null ? rs.getDate("data_checkin").toLocalDate() : null);
                 reserva.setDataCheckout(rs.getDate("data_checkout") != null ? rs.getDate("data_checkout").toLocalDate() : null);

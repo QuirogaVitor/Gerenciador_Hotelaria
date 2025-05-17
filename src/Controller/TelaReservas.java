@@ -61,7 +61,7 @@ public class TelaReservas {
         listaReservas.addAll(bf.Reserva().listar());
         tabelaReservas.setItems(listaReservas);
 
-        colunaCodigo.setCellFactory(null);;
+        colunaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoReserva"));
         colunaQuarto.setCellValueFactory(new PropertyValueFactory<>("numQuarto"));
         colunaStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colunaDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dataCheckIn"));

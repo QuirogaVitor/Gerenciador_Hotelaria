@@ -72,7 +72,6 @@ public class QuartoDAO {
         }catch(SQLException ex){
             throw new RuntimeException("Erro SQL", ex);
         }
-
     }
 
     public List<Quarto> listarTodos() {
@@ -123,6 +122,27 @@ public class QuartoDAO {
             rs.close();
             stmt.close();
             return lista;
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro SQL", ex);
+        }
+    }
+
+    public Quarto bucarPorId(int id) {
+        try{
+            String sql = "SELECT * FROM quarto WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Quarto q = null;
+            if (rs.next()) {
+                q = new Quarto();
+                q.setId(rs.getInt("id"));
+                q.setNumero(rs.getInt("numero"));
+                q.setStatus(Quarto.Status.valueOf(rs.getString("status")));  // Converte string para enum
+            }
+            rs.close();
+            stmt.close();
+            return q;
         }catch(SQLException ex){
             throw new RuntimeException("Erro SQL", ex);
         }

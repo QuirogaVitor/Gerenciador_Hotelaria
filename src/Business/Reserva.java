@@ -80,6 +80,7 @@ public class Reserva {
     public List<Model.Reserva> buscarComFiltros(int codigo, String cpf, int numeroQuarto) {
 
         List<Model.Reserva> reservasFiltradas = new LinkedList<>();
+        
         if (codigo != 0)
         {
             Model.Reserva reservaCod = df.getReservaDAO().buscarPorCodigo(codigo);
@@ -90,6 +91,10 @@ public class Reserva {
             }
         }
         List<Model.Reserva> reservas = df.getReservaDAO().listarTodos();
+        if(codigo == 0 && cpf == "" && numeroQuarto == 0)
+            {
+                return reservas;
+            }
         List<Model.Reserva> reservasCpf = new LinkedList<>();
         List<Model.Reserva> reservasQuarto = new LinkedList<>();
 
@@ -107,7 +112,7 @@ public class Reserva {
         {
             return reservasCpf;
         }
-        if (!reservasQuarto.isEmpty() && cpf == null)
+        if (!reservasQuarto.isEmpty() && cpf == "")
         {
             return reservasQuarto;
         }

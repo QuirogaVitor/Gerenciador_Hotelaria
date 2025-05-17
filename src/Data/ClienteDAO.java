@@ -105,4 +105,28 @@ public class ClienteDAO {
         }
 
     }
+
+    public Cliente buscarPorId(int id) {
+        try{
+            String sql = "SELECT * FROM cliente WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Cliente c = null;
+            if (rs.next()) {
+                c = new Cliente();
+                c.setClienteId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setEmail(rs.getString("email"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+            }
+            rs.close();
+            stmt.close();
+            return c;
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro SQL", ex);
+        }
+    }
 }
